@@ -1,0 +1,4 @@
+<%= @product.name  %>
+<%= form_with(model: [@product, OrderItem.new], url: product_order_items_path(@product), method: :post) do |form| %>
+  <%= form.submit "Add to Order", class: "btn btn-primary" %>
+<% end %>

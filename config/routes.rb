@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
-  get 'order_items/create'
-  get 'order_items/update'
-  get 'order_items/destroy'
+  resources :categories do
+    resources :products, only: %i[new create]
+  end
+
+  resources :products do
+    resources :order_items, only: %i[create update destroy]
+  end
+
+  resources :orders
+
   get 'shop', to: 'shop#index'
   get 'cart/show'
   devise_for :users

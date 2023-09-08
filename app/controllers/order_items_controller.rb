@@ -1,9 +1,18 @@
 class OrderItemsController < ApplicationController
   before_action :set_order
+
   def create
-    @order_item = @order.order_items.new(order_params)
-    @order.save!
-    session[:order_id] = order.id
+    @order = current_order
+    @product = Product.find(params[:product_id])
+    @order_item = @order.order_items.build(product: @product)
+
+    if @order_item.save
+      flash[:success] = "Product added to order successfully."
+      redirect_to @product # Redirect back to the product show page
+    else
+      flash[:error] = "Failed to add product to order."
+      redirect_to @product
+    end
   end
 
   def update
@@ -19,6 +28,10 @@ class OrderItemsController < ApplicationController
   end
 
   private
+
+  def order_item_params
+    params.require(:order_item).permit(:price)
+  end
 
   def order_params
     params.require(:order_item).permit(:product_id, :price)
