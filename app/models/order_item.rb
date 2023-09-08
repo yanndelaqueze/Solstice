@@ -4,7 +4,7 @@ class OrderItem < ApplicationRecord
   before_save :set_price
 
   def price
-      self[:price]
+    self[:price]
   end
 
   private

@@ -1,43 +1,38 @@
 class OrderItemsController < ApplicationController
-  before_action :set_order
+  before_action :set_order_item, only: [:update, :destroy]
 
+  # Create a new order item
   def create
     @order = current_order
     @product = Product.find(params[:product_id])
-    @order_item = @order.order_items.build(product: @product)
 
-    if @order_item.save
-      flash[:success] = "Product added to order successfully."
-      redirect_to @product # Redirect back to the product show page
-    else
-      flash[:error] = "Failed to add product to order."
-      redirect_to @product
-    end
+    redirect_to cart_path
   end
 
+  # Update the price of an order item
   def update
-    @order_item = @order.order_items.find(params[:id])
-    @order_item.update_attributes(order_params)
-    @order_items = current_order.order_items
+    if @order_item.update(order_item_params)
+      flash[:success] = "Order item updated successfully."
+    else
+      flash[:error] = "Failed to update order item."
+    end
+    redirect_to cart_path
   end
 
+  # Remove an order item from the cart
   def destroy
-    @order_item = @order.order_items.find(params[:id])
     @order_item.destroy
-    @order_items = current_order.order_items
+    flash[:success] = "Order item removed from your cart."
+    redirect_to cart_path
   end
 
   private
 
+  def set_order_item
+    @order_item = OrderItem.find(params[:id])
+  end
+
   def order_item_params
     params.require(:order_item).permit(:price)
-  end
-
-  def order_params
-    params.require(:order_item).permit(:product_id, :price)
-  end
-
-  def set_order
-    @order = current_order
   end
 end

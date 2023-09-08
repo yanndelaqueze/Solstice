@@ -1,14 +1,14 @@
 class Order < ApplicationRecord
   has_many :order_items
-  before_save :set_subtotal
+  # before_save :set_subtotal
 
-  def subtotal
-    order_items.collect { |order_item| order_item.valid? ? order_item.price : 0 }.sum
+  def total
+    order_items.sum { |item| item.price }
   end
 
-  private
+  # private
 
-  def set_subtotal
-    self[:subtotal] = subtotal
-  end
+  # def set_subtotal
+  #   self[:subtotal] = subtotal
+  # end
 end
