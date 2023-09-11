@@ -1,11 +1,19 @@
 class OrderItemsController < ApplicationController
   before_action :set_order_item, only: [:update, :destroy]
+  skip_before_action :authenticate_user!, only: [ :create, :update, :destroy]
+
 
   # Create a new order item
   def create
-    @order = current_order
     @product = Product.find(params[:product_id])
-
+    @order_item = OrderItem.new(order_item_params)
+    @order_item.product = @product
+    @order_item.order = current_order
+    if @order_item.save
+      flash[:success] = "Successfully added"
+    else
+      flash[:error] = "Problem !!"
+    end
     redirect_to cart_path
   end
 
@@ -33,6 +41,6 @@ class OrderItemsController < ApplicationController
   end
 
   def order_item_params
-    params.require(:order_item).permit(:price)
+    params.require(:order_item).permit(:price, :order_id, :product_id)
   end
 end

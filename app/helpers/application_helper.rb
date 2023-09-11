@@ -1,11 +1,10 @@
 module ApplicationHelper
   def current_order
-    if session[:order_id]
-      Order.find(session[:order_id])
+    # Use Find by id to avoid potential erros
+    if Order.find_by_id(session[:order_id]).nil?
+      Order.new
     else
-      order = Order.create
-      session[:order_id] = order.id
-      order
+      Order.find_by_id(session[:order_id])
     end
   end
 end

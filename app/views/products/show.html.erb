@@ -1,3 +1,8 @@
+<% if user_signed_in?   %>
+<%= current_user.id %>
+<% end %>
+<%= session.id  %>
+
 <%= @product.name  %>
 <%= form_with(model: [@product, OrderItem.new], url: product_order_items_path(@product), method: :post) do |form| %>
   <%= form.number_field :price, class: "form-control", value: @product.min_price %>
