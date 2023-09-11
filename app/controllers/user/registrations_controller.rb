@@ -1,6 +1,16 @@
 # frozen_string_literal: true
 
 class User::RegistrationsController < Devise::RegistrationsController
+  def create
+    super do
+      # Check if there is a current_order_id in the session
+      if session[:current_order_id].present?
+        # Associate the order with the signed up user
+        current_user.associate_order(Order.find(session[:current_order_id]))
+        session.delete(:current_order_id)
+      end
+    end
+  end
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
   # GET /resource/sign_up

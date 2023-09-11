@@ -5,8 +5,16 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :orders
   has_many :order_items, through: :orders
+  after_commit :assign_order_to_user, on: [:create]
 
-  def associate_order(order)
-    order.update(user: self)
+  private
+
+  def assign_order_to_user
+    if session[:current_order_id]
+      order = Order.find(session[:current_order_id])
+      order.update(user: self)
+      session[:current_order_id] = nil
+    end
   end
+
 end
