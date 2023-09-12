@@ -4,17 +4,15 @@ class OrderItemsController < ApplicationController
 
   # Create a new order item
   def create
-    @order = Order.find_or_create_by(status: 'pending')
     @product = Product.find(params[:product_id])
     @order_item = OrderItem.new(order_item_params)
-    @order_item.order = @order
     @order_item.product = @product
+    @order_item.order = current_order
     if @order_item.save
-      flash[:success] = "Successfully added"
+      redirect_to cart_path, notice: 'Product added to cart.'
     else
-      flash[:error] = "Problem !!"
+      redirect_to cart_path, notice: 'Not Added'
     end
-    redirect_to cart_path
   end
 
   # Update the price of an order item

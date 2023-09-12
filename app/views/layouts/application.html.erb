@@ -9,10 +9,11 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
-  <body><%= render "shared/navbar" %>
-<%= render "shared/flashes" %>
-
+  <body>
+    <%= render "shared/navbar" %>
+    <h5>Current Order ID :</h5><%= current_order.id  %>
+    <h5>Current Session ID :</h5><%= session.id  %>
+    <%= render "shared/flashes" %>
     <%= yield %>
   </body>
 </html>
