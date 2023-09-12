@@ -1,1 +1,22 @@
 // Specific CSS for your home-page
+
+body {
+  background-color: $dark-green;
+  margin: 0;
+  padding: 0;
+
+  .heading-home {
+    color: $white;
+    padding-top: 100px;
+  }
+
+  .btn-cta {
+    background-color: $pale-green;
+    border-radius: 5px;
+    padding: 12px;
+    text-decoration: none;
+    font-family: $body-font;
+    font-size: 24px;
+    color: white;
+  }
+}
