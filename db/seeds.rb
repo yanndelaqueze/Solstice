@@ -1,6 +1,8 @@
-User.delete_all
-Product.delete_all
-Category.delete_all
+OrderItem.destroy_all
+Order.destroy_all
+Product.destroy_all
+Category.destroy_all
+User.destroy_all
 
 User.create!(
   email: 'admin@example.com',

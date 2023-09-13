@@ -1,8 +1,18 @@
-<% if user_signed_in?   %>
-<%= current_user.id %>
-<% end %>
-<%= session.id  %>
-
+<h1 class= "shop-title">Mes Créations</h1>
 <div class="shop-container">
-  <%= render 'shop/products'%>
+  <div class="row">
+      <% @categories.each do |category| %>
+        <div class="col-12 category-header">
+          <% if category.photo.attached? %>
+            <%= cl_image_tag category.photo.key, class: "category-image"%>
+          <% else %>
+            <%= image_tag "banner_solstice.jpg", alt:"Solstice", class: "category-image"%>
+          <% end %>
+          <h1 class="category-name"><%= category.name %></h1>
+        </div>
+        <% category.products.each do |product| %>
+            <%= render 'card_product', product: product%>
+        <% end %>
+      <% end %>
+  </div>
 </div>

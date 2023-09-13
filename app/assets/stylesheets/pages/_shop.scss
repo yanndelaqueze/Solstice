@@ -3,6 +3,12 @@ body {
   margin: 0;
   padding: 0;
 
+  .shop-title {
+    color: $white;
+    text-align: center;
+    padding-top: 1em;
+  }
+
   .shop-container {
     background-color: $white;
     padding: 1em;
@@ -10,4 +16,23 @@ body {
     margin-right: 2em;
     margin-top: 2em
   }
+
+  .category-header {
+    position: relative;
+    text-align: center;
+    color: $white;
+  }
+
+  .category-image {
+    width: 100%;
+    height: 6em;
+    object-fit: cover;
+  }
+
+  .category-name {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+  }
+
 }
