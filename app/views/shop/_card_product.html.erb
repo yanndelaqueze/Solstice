@@ -1,10 +1,10 @@
 <div class="card-product">
-  <h5>
-    <%= product.name %>
-  </h5>
-  <p>
-    <%= product.description%>
-  </p>
+  <h5><%= product.name %></h5>
+  <% if product.photos.attached? %>
+    <%= cl_image_tag product.photos.first.key, class: "product-image"%>
+  <% else %>
+    <%= image_tag "banner_solstice.jpg", alt:"Solstice", class: "product-image"%>
+  <% end %>
   <span><%= product.min_price %></span>
   <%= link_to "Personnaliser", product_path(product) %>
 </div>
