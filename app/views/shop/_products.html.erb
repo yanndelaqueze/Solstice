@@ -1,8 +1,7 @@
 <div class="row">
     <% @categories.each do |category| %>
       <div class="col-12">
-          <h1 style="text-align:center;"><%= category.name %></h1>
-          <hr />
+        <h1 style="text-align:center"><%= category.name %></h1>
       </div>
       <% @products.each do |product| %>
         <% if product.category == category %>
