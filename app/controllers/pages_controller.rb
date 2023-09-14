@@ -9,6 +9,6 @@ class PagesController < ApplicationController
 
   def admin
     @products = Product.all
-    @cateogries = Category.all
+    @categories = Category.all
   end
 end

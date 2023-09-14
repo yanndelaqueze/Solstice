@@ -10,7 +10,7 @@
       <ul class="navbar-nav me-auto">
           <% if user_signed_in? %>
             <li>
-              <a class="nav-link text-dark" href="#">Hello <%= current_user.first_name %> !</a>
+              <a class="nav-link text-dark" href="#">Hello <%= current_user.email %> !</a>
             </li>
           <% end  %>
           <li>
@@ -19,6 +19,11 @@
           <li>
             <p>Session ID :<%= session.id %></p>
           </li>
+          <% if current_user.present? && current_user.admin %>
+          <li>
+            <a class="nav-link" href="<%=admin_path%>">Admin</a>
+          </li>
+          <% end %>
           <li>
             <a class="nav-link" href="<%=shop_path%>">Commander en ligne</a>
           </li>
