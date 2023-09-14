@@ -2,12 +2,7 @@
 <div class="shop-container">
   <div class="row">
       <% @categories.each do |category| %>
-        <div class="col-12 category-header">
-          <% if category.photo.attached? %>
-            <%= cl_image_tag category.photo.key, class: "category-image"%>
-          <% else %>
-            <%= image_tag "banner_solstice.jpg", alt:"Solstice", class: "category-image"%>
-          <% end %>
+          <div class="col-12 category-header" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('<%= category.photo.attached? ? cl_image_path(category.photo.key) : image_path('banner_solstice.jpg')%>')">
           <h1 class="category-name"><%= category.name %></h1>
         </div>
         <% category.products.each do |product| %>
