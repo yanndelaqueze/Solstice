@@ -1,10 +1,27 @@
-<% if user_signed_in?   %>
-<%= current_user.id %>
-<% end %>
-<%= session.id  %>
-
-<%= @product.name  %>
-<%= form_with(model: [@product, @order_item], url: product_order_items_path(@product), method: :post) do |form| %>
-  <%= form.number_field :price, class: "form-control", value: @product.min_price %>
-  <%= form.submit "Add to Order", class: "btn btn-primary" %>
-<% end %>
+<div class="product-show">
+  <div class="product-info">
+    <% if @product.photo.attached? %>
+      <%= cl_image_tag @product.photo.key, class: "product-image"%>
+    <% else %>
+      <%= image_tag "banner_solstice.jpg", alt:"Solstice", class: "product-image"%>
+    <% end %>
+    <div class="product-desc">
+      <p><%= @product.description  %></p>
+    </div>
+  </div>
+  <div class="product-customization">
+    <h3 class="product-name"><%= @product.name %></h3>
+    <p>Livraison Petite Île et environs</p>
+    <p>Click & Collect gratuit</p>
+    <p>------------------------</p>
+    <p>Afin que Solstice réalise le bouquet de vos rêves :</p>
+    <div class="custom-form">
+      <%= form_with(model: [@product, @order_item], url: product_order_items_path(@product), method: :post) do |form| %>
+        <%= form.number_field :price, class: "price-form", value: @product.min_price %>
+        <%= form.text_field :occasion, class: "form-control", value: "" %>
+        <%= form.text_field :message, class: "form-control", value: "" %>
+        <%= form.submit "Add to Order", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>
