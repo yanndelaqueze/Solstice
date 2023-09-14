@@ -17,10 +17,13 @@
     <p>Afin que Solstice réalise le bouquet de vos rêves :</p>
     <div class="custom-form">
       <%= form_with(model: [@product, @order_item], url: product_order_items_path(@product), method: :post) do |form| %>
+        <p>1- Indiquez votre budget :</p>
         <%= form.number_field :price, class: "price-form", value: @product.min_price %>
+        <p>2- Précisez l'occasion célébrée :</p>
         <%= form.text_field :occasion, class: "form-control", value: "" %>
+        <p>3- Rédigez le message que vous souhaitez y joindre :</p>
         <%= form.text_field :message, class: "form-control", value: "" %>
-        <%= form.submit "Add to Order", class: "btn btn-primary" %>
+        <%= form.submit "Ajouter au panier", class: "btn btn-primary" %>
       <% end %>
     </div>
   </div>
