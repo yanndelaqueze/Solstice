@@ -1,0 +1,8 @@
+<h1 class= "title">Tous les produits</h1>
+<div class="container">
+  <% @products.each do |product| %>
+    <p class="product-name"><%= product.name %></p>
+    <p class=""><%= product.category.name %></p>
+    <p class=""><%= product.order %></p>
+  <% end %>
+</div>

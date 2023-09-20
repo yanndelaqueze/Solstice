@@ -1,0 +1,10 @@
+<h1 class= "title">Catégories</h1>
+  <a class="nav-link" href="<%=products_path%>">Voir tous les produits</a>
+<div class="container">
+  <% @categories.each do |category| %>
+      <div class="col-12 category-header" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('<%= category.photo.attached? ? cl_image_path(category.photo.key) : image_path('banner_solstice.jpg')%>')">
+        <h1 class="category-name"><%= category.name %></h1>
+        <a href="<%=category_path(category)%>">Voir les produits</a>
+      </div>
+  <% end %>
+</div>
