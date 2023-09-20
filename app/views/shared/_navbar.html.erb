@@ -25,13 +25,13 @@
           </li>
           <% end %>
           <li>
-            <a class="nav-link" href="<%=shop_path%>">Commander en ligne</a>
+            <a class="nav-link" href="<%= boutique_path %>"><i class="fa-solid fa-store"></i> La Boutique</a>
           </li>
           <li>
-            <a class="nav-link" href="<%= about_path %>">La Boutique</a>
+            <a class="nav-link" href="<%= livraison_path %>"><i class="fa-solid fa-truck"></i> Livraison</a>
           </li>
           <li>
-            <a class="nav-link" href="<%= cart_path %>">Mon Panier</a>
+            <a class="nav-link" href="<%= panier_path %>"><i class="fa-solid fa-cart-shopping"></i> Mon Panier</a>
           </li>
           <li class="nav-item dropdown">
             <%= image_tag("avatar.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" }) %>

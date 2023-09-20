@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   root to: "pages#home"
-  get 'shop', to: 'shop#index'
-  get '/cart', to: 'cart#show'
+  get 'creations', to: 'shop#index'
+  get '/panier', to: 'cart#show'
   get '/admin', to: 'pages#admin'
-  get '/about', to: 'pages#about'
+  get '/boutique', to: 'pages#about'
+  get '/livraison', to: 'pages#delivery'
 
   resources :categories do
     resources :products, only: %i[new create]
