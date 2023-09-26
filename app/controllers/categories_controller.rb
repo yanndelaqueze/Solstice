@@ -8,6 +8,7 @@ class CategoriesController < ApplicationController
 
   def show
     @products = @category.products
+    @product = Product.new
   end
 
   def new

@@ -1,0 +1,12 @@
+<h1 class= "title"><%= @category.name %></h1>
+  <a class="nav-link" href="<%=categories_path%>">Retour à la liste des catégories</a>
+<div class="container">
+
+  <!-- Create New Product-->
+  <%= link_to "Ajouter un Produit", new_category_product_path(@category), class:""%>
+
+  <!-- Display Products-->
+  <% @products.each do |product| %>
+    <%= render 'products/card_product', product: product%>
+  <% end %>
+</div>

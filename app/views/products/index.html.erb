@@ -1,8 +1,8 @@
 <h1 class= "title">Tous les produits</h1>
 <div class="container">
+
+  <!-- Display Products-->
   <% @products.each do |product| %>
-    <p class="product-name"><%= product.name %></p>
-    <p class=""><%= product.category.name %></p>
-    <p class=""><%= product.order %></p>
+    <%= render 'products/card_product', product: product%>
   <% end %>
 </div>

@@ -28,7 +28,7 @@ class ProductsController < ApplicationController
 
   def update
     if @product.update(product_params)
-      redirect_to product_path(@product), notice: 'Product was successfully updated'
+      redirect_to category_path(@product.category), notice: 'Product was successfully updated'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -46,6 +46,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :description, :min_price, :available, :featured, :order, :photo)
+    params.require(:product).permit(:name, :description, :min_price, :available, :featured, :order, :photo, :category_id)
   end
 end

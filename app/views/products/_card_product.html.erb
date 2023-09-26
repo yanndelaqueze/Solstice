@@ -1,0 +1,22 @@
+<p><%= product.name %></p>
+<p><%= product.description %></p>
+<p><%= product.min_price %></p>
+<p><%= product.available %></p>
+<% product.photos.each do |photo| %>
+  <img src="<%= cl_image_path photo.key %>" alt="">
+<% end %>
+<!-- Modal to Edit the Product -->
+<%= link_to 'Edit',  '#', 'data-target' => "#myModal_#{product.id}", 'data-toggle' => 'modal'  %>
+  <div class="modal fade" id='<%= "myModal_#{product.id}" %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <%= render 'products/form', product: product %>
+        </div>
+      </div>
+    </div>
+  </div>

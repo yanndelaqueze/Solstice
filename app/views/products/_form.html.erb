@@ -1,0 +1,20 @@
+<%= form_for(product, remote: true) do |f| %>
+    <div class="field">
+      <%= f.label :name %>
+      <br>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :description %>
+      <br>
+      <%= f.text_field :description %>
+    </div>
+    <div class="field">
+      <%= f.label :order %>
+      <br>
+      <%= f.number_field :order %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>
