@@ -251,7 +251,7 @@ orchidees = Category.new(
 print "1 category / "
 
 coupe_orchidees = Product.new(
-  name: "Bouquet de Fleurs Séchées",
+  name: "Coupe d'Orchidées",
   description: "Ces orchidée Phalaenopsis sont de véritable accroche-regard dans votre maison. Vous pensez offrir une orchidée  sans parvenir à vous décider? Nous allons vous aider! L’orchidée est la meilleure idée de cadeau pour prouver sa tendresse et son admiration envers quelqu’un. Elle fait partie des fleurs que vous pouvez offrir aussi bien à votre partenaire qu’à un parent ou un ami, car les sentiments qu’elle évoque ne sont pas uniquement liés à l’amour de couple.",
   min_price: 40,
   order: 10,

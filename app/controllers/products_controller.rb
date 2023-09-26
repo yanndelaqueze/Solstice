@@ -32,7 +32,6 @@ class ProductsController < ApplicationController
     if @product.save
       redirect_to category_path(@product.category), notice: 'Product was successfully created'
     else
-      raise
       render :new, status: :unprocessable_entity
     end
   end
@@ -50,7 +49,7 @@ class ProductsController < ApplicationController
 
   def destroy
     @product.destroy
-    redirect_to products_path, status: :see_other
+    redirect_to request.referrer || root_url
   end
 
   private
