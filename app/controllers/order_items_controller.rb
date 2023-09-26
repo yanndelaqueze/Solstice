@@ -22,14 +22,14 @@ class OrderItemsController < ApplicationController
     else
       flash[:error] = "Failed to update order item."
     end
-    redirect_to cart_path
+    redirect_to panier_path
   end
 
   # Remove an order item from the cart
   def destroy
     @order_item.destroy
     flash[:success] = "Order item removed from your cart."
-    redirect_to cart_path
+    redirect_to panier_path
   end
 
   private

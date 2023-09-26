@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i[show edit update destroy]
 
   def index
-    @categories = Category.all
+    @categories = Category.all.order(order: :asc)
   end
 
   def show
@@ -27,7 +27,7 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      redirect_to category_path(@category), notice: 'Category was successfully updated'
+      redirect_to categories_path, notice: 'Category was successfully updated'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -45,6 +45,6 @@ class CategoriesController < ApplicationController
   end
 
   def category_params
-    params.require(:product).permit(:name, :description, :display, :order, :photo)
+    params.require(:category).permit(:name, :description, :display, :order, :photo)
   end
 end
