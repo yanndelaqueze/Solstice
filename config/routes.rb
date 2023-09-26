@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :products, only: %i[new create]
   end
 
+  resources :products, only: %i[new create]
+
   resources :products do
     resources :order_items, only: %i[create]
   end

@@ -1,11 +1,46 @@
-<div class="form-container", data-controller="form-range">
-  <%= simple_form_for product do |f| %>
-    <%= f.input :name, placeholder: "Nom du Produit", label: false %>
-    <%= f.input :description, placeholder: "Description", label: false %>
-    <div class="range-input-container">
-      <%= f.input :min_price, as: :range, label: "Prix Minimum", input_html: { min: 1, max: 150, step: 1, class: "range-input", data: { form_range_target: "valuePrice", action: "input->form-range#changePrice" }} %>
-      <span class="value" data-form-range-target="labelPrice"></span><span>,00€</span>
+<% if params[:category_id] %>
+  <%= form_for [@category, @product] do |f| %>
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
     </div>
-    <%= f.submit class: "btn btn-outline-primary mt-2" %>
+
+    <div class="field">
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+    </div>
+
+    <div class="field">
+      <%= f.label :min_price %>
+      <%= f.number_field :min_price %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
   <% end %>
-</div>
+  <%= link_to 'Back', category_path(@category) %>
+<% else %>
+  <%= form_with(model: @product, url: products_path, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.text_field :price %>
+  </div>
+  <div class="field">
+    <%= form.label :category_id %>
+    <%= form.collection_select :category_id, @categories, :id, :name, prompt: 'Select a category' %>
+  </div>
+  <div class="actions">
+    <%= form.submit 'Create Product' %>
+  </div>
+<% end %>
+  <%= link_to 'Back', products_path %>
+<% end %>

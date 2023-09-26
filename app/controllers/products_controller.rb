@@ -11,18 +11,28 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @category = Category.find(params[:category_id])
+    if params[:category_id]
+      @category = Category.find(params[:category_id])
+    else
+      @categories = Category.all
+    end
     @product = Product.new
   end
 
   def create
-    @category = Category.find(params[:category_id])
-    @product = Product.new(product_params)
-    @product.category = @category
-    raise
+    if params[:category_id]
+      @category = Category.find(params[:category_id])
+      @product = Product.new(product_params)
+      @product.category = @category
+    else
+      @categories = Category.all
+      @product = Product.new(product_params)
+      @product.category_id = params[:product][:category_id]
+    end
     if @product.save
       redirect_to category_path(@product.category), notice: 'Product was successfully created'
     else
+      raise
       render :new, status: :unprocessable_entity
     end
   end
@@ -50,6 +60,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :description, :min_price, :available, :featured, :order, :photo, :category_id)
+    params.require(:product).permit(:name, :description, :min_price, :available, :featured, :order, :photo)
   end
 end
