@@ -1,37 +1,40 @@
 <div class="card-product">
+  <div class="product-header">
+    <h3><%= product.name %></h3>
+    <div class="product-actions">
+      <!-- Edit the Product (Bootstrap Modal) -->
+      <%= link_to ('<i class="fa-solid fa-pen-to-square"></i>').html_safe,  '#', 'data-target' => "#myModal_#{product.id}", 'data-toggle' => 'modal'  %>
+        <div class="modal fade" id='<%= "myModal_#{product.id}" %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+              </div>
+              <div class="modal-body">
+                <%= render 'products/form', product: product %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- Delete the Product (Bootstrap Modal) -->
+      <%= link_to ('<i class="fa-regular fa-trash-can"></i>').html_safe, product_path(product), class: 'text-danger', data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+    </div>
+  </div>
   <div class="product-info">
     <div class="product-spec1">
-      <p><%= product.name %></p>
       <p><%= product.description %></p>
       <ul class="product-images">
+        <p><%= pluralize(product.photos.size, 'Photo') %></p>
         <% product.photos.each do |photo| %>
           <img src="<%= cl_image_path photo.key %>" alt="">
         <% end %>
       </ul>
     </div>
     <div class="product-spec2">
-      <p><%= product.order %></p>
-      <p><%= product.available %></p>
-      <p><%= product.min_price %></p>
+      <p>Position : <%= product.order %></p>
+      <p>Disponible :<%= product.available %></p>
+      <p>Prix min. :<%= product.min_price %>€</p>
     </div>
-  </div>
-  <div class="product-actions">
-    <!-- Edit the Product (Bootstrap Modal) -->
-    <%= link_to ('<i class="fa-solid fa-pen-to-square"></i>').html_safe,  '#', 'data-target' => "#myModal_#{product.id}", 'data-toggle' => 'modal'  %>
-      <div class="modal fade" id='<%= "myModal_#{product.id}" %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-            </div>
-            <div class="modal-body">
-              <%= render 'products/form', product: product %>
-            </div>
-          </div>
-        </div>
-      </div>
-    <!-- Delete the Product (Bootstrap Modal) -->
-    <%= link_to ('<i class="fa-regular fa-trash-can"></i>').html_safe, product_path(product), class: 'text-danger fs-4 p-2', data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
   </div>
 </div>
