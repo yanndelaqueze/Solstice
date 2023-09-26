@@ -2,9 +2,9 @@
 <div class="container">
 
   <!-- Create New Product-->
-  <%= link_to "Ajouter un Produit", new_product_path, class:""%>
+  <%= link_to "Ajouter un Produit", new_product_path, class:"btn-cta"%>
 
-  <!-- Display Products-->
+  <!-- Create New Product-->
   <% @products.each do |product| %>
     <%= render 'products/card_product', product: product%>
   <% end %>

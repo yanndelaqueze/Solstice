@@ -1,10 +1,9 @@
 <h1 class= "title">Catégories</h1>
-  <a class="nav-link" href="<%=products_path%>">Voir tous les produits</a>
 <div class="container">
 
   <!-- Modal to Add a new Category -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newCategoryModal">
-    New Category
+  <button type="button" class="btn-cta" data-toggle="modal" data-target="#newCategoryModal">
+    Nouvelle Catégorie
   </button>
   <div class="modal fade" id="newCategoryModal" tabindex="-1" role="dialog" aria-labelledby="newCategoryModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -24,28 +23,34 @@
 
   <!-- Display Categories-->
   <% @categories.each do |category| %>
-    <h1 class="category-name"><%= category.name %></h1>
-    <p><%= category.order  %></p>
-    <a href="<%=category_path(category)%>">Voir les produits</a>
-
-    <!-- Modal to Edit the Category -->
-    <%= link_to 'Edit',  '#', 'data-target' => "#myModal_#{category.id}", 'data-toggle' => 'modal'  %>
-      <div class="modal fade" id='<%= "myModal_#{category.id}" %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+    <div class="card-category">
+      <div class="category-header">
+        <h3 class="category-name"><%= category.name %></h3>
+        <div class="category-actions">
+          <!-- Modal to Edit the Category -->
+          <%= link_to ('<i class="fa-solid fa-pen-to-square"></i>').html_safe,  '#', 'data-target' => "#myModal_#{category.id}", 'data-toggle' => 'modal'  %>
+            <div class="modal fade" id='<%= "myModal_#{category.id}" %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                  </div>
+                  <div class="modal-body">
+                    <%= render 'categories/form', category: category %>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="modal-body">
-              <%= render 'categories/form', category: category %>
-            </div>
-          </div>
+          <!-- Delete Button -->
+          <%= link_to ('<i class="fa-regular fa-trash-can"></i>').html_safe, category_path(category), class: 'text-danger fs-4 p-2', data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
         </div>
       </div>
 
-    <!-- Delete Button -->
-    <%= link_to ('<i class="fa-regular fa-trash-can"></i>').html_safe, category_path(category), class: 'text-danger fs-4 p-2', data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-  <% end %>
+      <p>Position : <%= category.order  %></p>
+      <a href="<%=category_path(category)%>">Voir les <%= category.products.count  %> produits</a>
 
+
+    </div>
+  <% end %>
 </div>

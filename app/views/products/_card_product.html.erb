@@ -33,7 +33,11 @@
     </div>
     <div class="product-spec2">
       <p>Position : <%= product.order %></p>
-      <p>Disponible :<%= product.available %></p>
+      <p>Disponible :<% if product.available %>
+        <i class="fa-solid fa-check text-success"></i>
+      <% else %>
+        <i class="fa-solid fa-x text-danger"></i>
+      <% end %></p>
       <p>Prix min. :<%= product.min_price %>€</p>
     </div>
   </div>
