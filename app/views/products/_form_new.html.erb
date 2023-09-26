@@ -1,0 +1,11 @@
+<div class="form-container", data-controller="form-range">
+  <%= simple_form_for product do |f| %>
+    <%= f.input :name, placeholder: "Nom du Produit", label: false %>
+    <%= f.input :description, placeholder: "Description", label: false %>
+    <div class="range-input-container">
+      <%= f.input :min_price, as: :range, label: "Prix Minimum", input_html: { min: 1, max: 150, step: 1, class: "range-input", data: { form_range_target: "valuePrice", action: "input->form-range#changePrice" }} %>
+      <span class="value" data-form-range-target="labelPrice"></span><span>,00€</span>
+    </div>
+    <%= f.submit class: "btn btn-outline-primary mt-2" %>
+  <% end %>
+</div>

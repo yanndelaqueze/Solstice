@@ -1,0 +1,7 @@
+<h1 class= "title">Nouveau Produit</h1>
+    <%= link_to :back do %>
+      <i class="fa-solid fa-circle-arrow-left fs-5"></i>
+    <% end %>
+<div class="container">
+  <%= render 'form_new', product: @product %>
+</div>
