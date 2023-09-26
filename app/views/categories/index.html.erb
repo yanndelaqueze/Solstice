@@ -3,10 +3,27 @@
 <div class="container">
   <% @categories.each do |category| %>
     <h1 class="category-name"><%= category.name %></h1>
-    <%= form_with(model: category, local: true) do |form| %>
-      <%= form.number_field :order %>
-      <%= form.submit "Update" %>
-    <% end %>
+    <p><%= category.order  %></p>
     <a href="<%=category_path(category)%>">Voir les produits</a>
+    <%= link_to 'Edit',  '#', 'data-target' => "#myModal_#{category.id}", 'data-toggle' => 'modal'  %>
+      <div class="modal fade" id='<%= "myModal_#{category.id}" %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+              <%= render 'categories/form', category: category %>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    <%= link_to ('<i class="fa-regular fa-trash-can"></i>').html_safe, category_path(category), class: 'text-danger fs-4 p-2', data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
   <% end %>
+<!-- Button trigger modal -->
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Add Category
+</button>
+
 </div>

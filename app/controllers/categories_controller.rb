@@ -3,6 +3,7 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = Category.all.order(order: :asc)
+    @category = Category.new
   end
 
   def show
