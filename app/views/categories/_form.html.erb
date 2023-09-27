@@ -1,15 +1,15 @@
 <%= form_for(category, remote: true) do |f| %>
-    <div class="field">
-      <%= f.label :name %>
+    <div class="form-group">
+      <%= f.label :name, "Nom de la catégorie" %>
       <br>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, class: 'form-control'  %>
     </div>
-    <div class="field">
-      <%= f.label :order %>
+    <div class="form-group">
+      <%= f.label :order, "Position :"  %>
       <br>
-      <%= f.number_field :order %>
+      <%= f.number_field :order, class: 'form-control'  %>
     </div>
-    <div class="actions">
-      <%= f.submit %>
+    <div class="form-group">
+      <%= f.submit 'Mettre à jour', class: 'btn btn-action' %>
     </div>
 <% end %>
