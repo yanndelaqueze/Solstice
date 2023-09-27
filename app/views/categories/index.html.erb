@@ -28,7 +28,7 @@
         <h3 class="category-name"><%= category.name %></h3>
         <div class="category-actions">
           <!-- Modal to Edit the Category -->
-          <%= link_to ('<i class="fa-solid fa-pen-to-square"></i>').html_safe,  '#', 'data-target' => "#myModal_#{category.id}", 'data-toggle' => 'modal'  %>
+          <%= link_to ('<i class="fa-solid fa-pen-to-square"></i>').html_safe,  '#', 'data-target' => "#myModal_#{category.id}", 'data-toggle' => 'modal', class: "fs-4"  %>
             <div class="modal fade" id='<%= "myModal_#{category.id}" %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
