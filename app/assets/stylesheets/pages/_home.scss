@@ -20,4 +20,30 @@ body {
     font-size: 24px;
     color: white;
   }
+
+  .infos {
+    display: flex;
+    margin-top: 2em;
+
+    .address {
+      color: $dark-green;
+      width: 30%;
+      background-color: $pale-green;
+      padding-left: 1em;
+      padding-top: 1em;
+      font-size: 18px;
+    }
+    .time {
+      color: $dark-green;
+      width: 70%;
+      background-color: $eggshell;
+      padding-left: 1em;
+      padding-top: 1em;
+    }
+
+    .link {
+      text-decoration: none;
+      color: $dark-green;
+    }
+  }
 }
