@@ -40,6 +40,19 @@ class ProductsController < ApplicationController
   end
 
   def update
+    # Check for removed images
+    if params[:product][:remove_image].present?
+      params[:product][:remove_image].each do |image_id|
+        @product.photos.find(image_id).purge
+      end
+    end
+
+    # Attach new images
+    if params[:product][:new_images].present?
+      params[:product][:new_images].each do |image|
+        @product.photos.attach(image)
+      end
+    end
     if @product.update(product_params)
       redirect_to category_path(@product.category), notice: 'Product was successfully updated'
     else
@@ -59,6 +72,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :description, :min_price, :available, :featured, :order, :photo)
+    params.require(:product).permit(:name, :description, :min_price, :available, :featured, :order, :photos)
   end
 end

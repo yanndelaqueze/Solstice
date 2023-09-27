@@ -1,4 +1,4 @@
-<%= form_for(product, remote: true) do |f| %>
+<%= form_for(product, remote: true, html: { multipart: true }) do |f| %>
     <div class="form-group">
       <%= f.label :name, "Nom du produit" %>
       <br>
@@ -21,6 +21,18 @@
       <%= f.label :order, "Position" %>
       <%= f.number_field :order%>
     </div>
+    <!-- Existing Images -->
+    <% product.photos.each do |photo| %>
+      <div>
+        <img src="<%= cl_image_path photo.key %>" alt="" class="form_image">
+        <%= f.check_box :remove_image, { multiple: true }, photo.id, nil %>
+      </div>
+    <% end %>
+
+    <!-- New Images -->
+    <%= f.label :new_images %>
+    <%= f.file_field :new_images, { multiple: true } %>
+
     <div class="form-group">
       <%= f.submit "Mettre à jour", class:"btn btn-action" %>
     </div>
