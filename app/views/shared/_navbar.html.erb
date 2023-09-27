@@ -19,11 +19,11 @@
           <% end  %>
           <% if current_user.present? && current_user.admin %>
           <li>
-            <a class="nav-link" href="<%=admin_path%>">Admin</a>
+            <a class="nav-link admin-btn" href="<%=admin_path%>">Admin</a>
           </li>
           <% end %>
           <li>
-            <a class="nav-link" href="<%= boutique_path %>"><i class="fa-solid fa-store"></i> La Boutique</a>
+            <a class="nav-link" href="<%= boutique_path %>"><i class="fa-solid fa-store"></i> Boutique en ligne</a>
           </li>
           <li>
             <a class="nav-link" href="<%= livraison_path %>"><i class="fa-solid fa-truck"></i> Livraison</a>
