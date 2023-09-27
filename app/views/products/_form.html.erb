@@ -22,17 +22,25 @@
       <%= f.number_field :order%>
     </div>
     <!-- Existing Images -->
-    <% product.photos.each do |photo| %>
-      <div>
-        <img src="<%= cl_image_path photo.key %>" alt="" class="form_image">
-        <%= f.check_box :remove_image, { multiple: true }, photo.id, nil %>
+    <div class="form-group">
+      <%= f.label :remove_image, "Supprimer des images" %>
+      <div class="images">
+        <% product.photos.each do |photo| %>
+          <div>
+            <img src="<%= cl_image_path photo.key %>" alt="" class="form-image">
+            <br>
+            <%= f.check_box :remove_image, { multiple: true }, photo.id, nil %>
+          </div>
+        <% end %>
       </div>
-    <% end %>
+    </div>
 
     <!-- New Images -->
-    <%= f.label :new_images %>
-    <%= f.file_field :new_images, { multiple: true } %>
-
+    <div class="form-group">
+      <%= f.label :new_images, "Ajouter des images" %>
+      <br>
+      <%= f.file_field :new_images, { multiple: true } %>
+    </div>
     <div class="form-group">
       <%= f.submit "Mettre à jour", class:"btn btn-action" %>
     </div>
