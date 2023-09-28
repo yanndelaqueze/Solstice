@@ -3,50 +3,75 @@
       <i class="fa-solid fa-circle-arrow-left fs-5"></i>
     <% end %>
 <div class="container">
+  <!-- Case 1 / Category ID is in the params -->
   <% if params[:category_id] %>
-    <%= form_for [@category, @product] do |f| %>
-      <div class="field">
-        <%= f.label :name %>
-        <%= f.text_field :name %>
+    <%= form_for(@product, remote: true, html: { multipart: true }) do |f| %>
+      <div class="form-group">
+        <%= f.label :name, "Nom du produit" %>
+        <br>
+        <%= f.text_field :name, class: 'form-control'  %>
       </div>
-
-      <div class="field">
-        <%= f.label :description %>
-        <%= f.text_area :description %>
+      <div class="form-group">
+        <%= f.label :description, "Description" %>
+        <br>
+        <%= f.text_area :description, class: 'form-control'  %>
       </div>
-
-      <div class="field">
-        <%= f.label :min_price %>
+      <div class="form-group">
+        <%= f.label :min_price, "Prix minimum" %>
         <%= f.number_field :min_price %>
       </div>
-
-      <div class="actions">
-        <%= f.submit %>
+      <div class="form-group">
+        <%= f.label :available, "Disponible ?" %>
+        <%= f.check_box :available%>
+      </div>
+      <div class="form-group">
+        <%= f.label :order, "Position" %>
+        <%= f.number_field :order%>
+      </div>
+      <div class="form-group">
+        <%= f.label :new_images, "Ajouter des images" %>
+        <br>
+        <%= f.file_field :new_images, { multiple: true } %>
+      </div>
+      <div class="form-group">
+        <%= f.submit "Créer", class:"btn btn-action" %>
       </div>
     <% end %>
-    <%= link_to 'Back', category_path(@category) %>
+  <!-- Case 2 / Category ID is NOT in the params -->
   <% else %>
-    <%= form_with(model: @product, url: products_path, local: true) do |form| %>
-    <div class="field">
-      <%= form.label :name %>
-      <%= form.text_field :name %>
-    </div>
-    <div class="field">
-      <%= form.label :description %>
-      <%= form.text_area :description %>
-    </div>
-    <div class="field">
-      <%= form.label :price %>
-      <%= form.text_field :price %>
-    </div>
-    <div class="field">
-      <%= form.label :category_id %>
-      <%= form.collection_select :category_id, @categories, :id, :name, prompt: 'Select a category' %>
-    </div>
-    <div class="actions">
-      <%= form.submit 'Create Product' %>
-    </div>
-  <% end %>
-    <%= link_to 'Back', products_path %>
+    <%= form_with(model: @product, url: products_path, local: true) do |f| %>
+      <div class="form-group">
+        <%= f.label :name, "Nom du produit" %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :description, "Description" %>
+        <%= f.text_area :description, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :min_price, "Prix Minimum" %>
+        <%= f.number_field :min_price %>
+      </div>
+      <div class="form-group">
+        <%= f.label :available, "Disponible ?" %>
+        <%= f.check_box :available %>
+      </div>
+      <div class="form-group">
+        <%= f.label :order, "Position" %>
+        <%= f.number_field :order %>
+      </div>
+      <div class="form-group">
+        <%= f.label :category_id %>
+        <%= f.collection_select :category_id, @categories, :id, :name, prompt: 'Select a category' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :new_images, "Ajouter des images" %>
+        <br>
+        <%= f.file_field :new_images, { multiple: true } %>
+      </div>
+      <div class="actions">
+        <%= f.submit "Créer", class:"btn btn-action" %>
+      </div>
+    <% end %>
   <% end %>
 </div>
