@@ -11,20 +11,30 @@
   </div>
   <div class="product-customization">
     <h3 class="product-name"><%= @product.name %></h3>
-    <p>Livraison Petite Île et environs</p>
+    <p>Livraison Petite Île et environs <a class="nav-link" href="<%= livraison_path %>"><i class="fa-solid fa-truck"></i> Options de Livraison</a></p>
+
     <p>Click & Collect gratuit</p>
     <p>------------------------</p>
     <p>Afin que Solstice réalise le bouquet de vos rêves :</p>
     <div class="custom-form">
-      <%= form_with(model: [@product, @order_item], url: product_order_items_path(@product), method: :post) do |form| %>
-        <p>1- Indiquez votre budget :</p>
-        <%= form.number_field :price, class: "price-form", value: @product.min_price %>
+
+
+
+
+      <%= simple_form_for [@product, @order_item] do |f| %>
+        <p>1- Indiquez votre budget : (minimum <%= @product.min_price %>€)</p>
+        <%= f.input :price, placeholder: @product.min_price.to_s, label: false %>
+
         <p>2- Précisez l'occasion célébrée :</p>
-        <%= form.text_field :occasion, class: "form-control", value: "" %>
+        <%= f.input :occasion, collection_wrapper_tag: "div", collection_wrapper_class: 'category-wrapper', item_wrapper_class: 'category-item', input_html: {class: 'category-selector'}, collection: OrderItem::OCCASIONS, label: false %>
+
         <p>3- Rédigez le message que vous souhaitez y joindre :</p>
-        <%= form.text_field :message, class: "form-control", value: "" %>
-        <%= form.submit "Ajouter au panier", class: "btn btn-primary" %>
+        <%= f.input :message, as: :text, placeholder: "", label: false %>
+
+        <%= f.submit 'Valider', class: "btn btn-action" %>
+
       <% end %>
+
     </div>
   </div>
 </div>
