@@ -45,15 +45,15 @@
       </div>
       <div class="form-group">
         <%= form.label :min_price, "Prix Minimum" %>
-        <%= form.text_field :min_price %>
+        <%= form.number_field :min_price %>
       </div>
       <div class="form-group">
         <%= form.label :available, "Disponible ?" %>
-        <%= form.text_field :available %>
+        <%= form.check_box :available %>
       </div>
       <div class="form-group">
         <%= form.label :order, "Position" %>
-        <%= form.text_field :order %>
+        <%= form.number_field :order %>
       </div>
       <div class="form-group">
         <%= form.label :category_id %>
