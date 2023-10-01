@@ -11,35 +11,18 @@ class ProductsController < ApplicationController
   end
 
   def new
-    if params[:category_id]
-      @category = Category.find(params[:category_id])
-    else
-      @categories = Category.all
-    end
+    @categories = Category.all
     @product = Product.new
   end
 
   def create
-    # Case 1 : category id is in the params
-    if params[:category_id]
-      @category = Category.find(params[:category_id])
-      @product = Product.new(product_params)
-      @product.category = @category
-      if @product.save
-        redirect_to category_path(@product.category), notice: 'Product was successfully created'
-      else
-        render :new, status: :unprocessable_entity
-      end
-      # Case 2 : category id is not in the params
+    @categories = Category.all
+    @product = Product.new(product_params)
+    @product.category_id = params[:product][:category_id]
+    if @product.save
+      redirect_to category_path(@product.category), notice: 'Product was successfully created'
     else
-      @categories = Category.all
-      @product = Product.new(product_params)
-      @product.category_id = params[:product][:category_id]
-      if @product.save
-        redirect_to products_path, notice: 'Product was successfully created'
-      else
-        render :new, status: :unprocessable_entity
-      end
+      render :new, status: :unprocessable_entity
     end
   end
 
