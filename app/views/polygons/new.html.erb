@@ -3,7 +3,7 @@
   <%= form_with(model: @polygon, local: true) do |form| %>
     <div class="field">
       <%= form.label :name, 'Nom' %>
-      <%= form.text_field :name %>
+      <%= form.text_field :name, placeholder: Polygon.last.name %>
       <%= form.hidden_field :coordinates, id: "polygon_coordinates" %>
     </div>
 
