@@ -2,8 +2,9 @@
   background-color: $pink;
   border-radius: 5px;
   padding: 12px;
-  text-decoration: none;
+  text-decoration: none !important;
   font-family: $body-font;
   font-size: 14px;
-  color: white !important
+  color: white !important;
+  border: none;
 }
