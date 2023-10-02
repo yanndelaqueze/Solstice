@@ -1,7 +1,15 @@
 body {
-  .admin-link {
-    text-decoration: none;
-    color: $dark-green;
+
+  .admin-links {
+    display: block;
+    text-align: center;
+
+    .admin-link {
+      text-decoration: none;
+      color: $dark-green;
+      text-align: center;
+    }
   }
+
 
 }
