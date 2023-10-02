@@ -29,9 +29,10 @@
   // Initialize the Mapbox map
   const map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11',
+    style: 'mapbox://styles/mapbox/streets-v12',
     center: [55.565520, -21.355710], // Initial center coordinates
-    zoom: 12 // Initial zoom level
+    zoom: 12, // Initial zoom level
+    attributionControl: true
   });
 
   // Add navigation controls (pan, zoom, etc.)
