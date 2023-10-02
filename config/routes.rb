@@ -20,6 +20,6 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :polygons, only: %i[index new create]
+  resources :polygons, only: %i[index new create show]
 
 end

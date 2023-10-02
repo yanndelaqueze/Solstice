@@ -1,4 +1,9 @@
 class PolygonsController < ApplicationController
+
+  def show
+    @polygon = Polygon.last
+  end
+
   def index
     @polygons = Polygon.all
   end
@@ -8,6 +13,7 @@ class PolygonsController < ApplicationController
   end
 
   def create
+    Polygon.destroy_all
     @polygon = Polygon.new(polygon_params)
 
     if @polygon.save
