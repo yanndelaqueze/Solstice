@@ -13,5 +13,6 @@ class PagesController < ApplicationController
   def admin
     @products = Product.all
     @categories = Category.all
+    @orders = Order.all
   end
 end
