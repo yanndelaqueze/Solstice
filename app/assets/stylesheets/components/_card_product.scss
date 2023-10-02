@@ -20,6 +20,7 @@
 
   .product-info {
     display: flex;
+
     .product-spec1 {
       display: block;
       width: 80%;
@@ -28,14 +29,6 @@
       padding-right: 1em;
       padding-bottom: 1em;
 
-      .product-images {
-        display: inline;
-        padding-left: 0;
-      }
-
-      .product-images img {
-        height: 6em;
-      }
     }
 
     .product-spec2 {
@@ -45,6 +38,15 @@
       padding-right: 1em;
       padding-bottom: 1em;
     }
+  }
+
+  .product-images {
+    display: inline;
+    padding-left: 0;
+  }
+
+  .product-images img {
+    height: 3em;
   }
 
   .form-image {
