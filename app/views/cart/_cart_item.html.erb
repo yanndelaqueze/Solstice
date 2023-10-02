@@ -1,4 +1,3 @@
-<h3>Your current order has a total of: </h3>
 <div class="cart-item">
   <div class="cart-item-header">
     <h3><%= order_item.product.name%></h3>
@@ -9,7 +8,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">Modifier l'article</h5>
+                <h5 class="modal-title" id="myModalLabel">Modifier l'article : <%= order_item.product.name%></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -24,4 +23,20 @@
       <%= link_to ('<i class="fa-regular fa-trash-can"></i>').html_safe, order_item_path(order_item), class: 'text-danger fs-4', data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
     </div>
   </div>
+  <div class="cart-item-info">
+    <div class="cart-item-spec1">
+      <p>Message : <%= order_item.message %></p>
+    </div>
+    <div class="cart-item-spec2">
+      <p>Occasion : <%= order_item.occasion %></p>
+      <p>Couleur dominante : <%= order_item.color %></p>
+      <p>Budget : <%= order_item.price %>€</p>
+    </div>
+  </div>
+  <ul class="cart-item-images">
+    <p>Photos (non contractuelles) :</p>
+    <% order_item.product.photos.each do |photo| %>
+      <img src="<%= cl_image_path photo.key %>" alt="">
+    <% end %>
+  </ul>
 </div>

@@ -1,5 +1,6 @@
 <h1 class= "title">Mon panier</h1>
 <div class="container">
+<h3><%= pluralize(current_order.order_items.size, 'article') %> / Total : <%= current_order.total  %>€ </h3>
   <div id="cart-items">
     <% @order_items.each do |order_item| %>
       <%= render 'cart_item', order_item: order_item %>
