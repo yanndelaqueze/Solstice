@@ -12,8 +12,12 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <%= favicon_link_tag asset_path('favicon.png') %>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
+
+    <%# MAPBOX %>
+    <%= javascript_include_tag 'https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.js' %>
+    <%= stylesheet_link_tag 'https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.css' %>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.0/mapbox-gl-draw.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.0/mapbox-gl-draw.css" type="text/css">
   </head>
   <body>
     <div id='footer-container'>

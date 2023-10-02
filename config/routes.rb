@@ -19,4 +19,7 @@ Rails.application.routes.draw do
   resources :orders
 
   devise_for :users
+
+  resources :polygons, only: %i[index new create]
+
 end

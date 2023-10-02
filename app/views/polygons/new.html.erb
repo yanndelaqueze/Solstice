@@ -1,0 +1,54 @@
+<h1>New Polygon</h1>
+
+<%= form_with(model: @polygon, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+    <%= form.hidden_field :coordinates, id: "polygon_coordinates" %>
+  </div>
+
+
+  <div id="map" style="width: 100%; height: 400px;"></div>
+
+  <div class="actions">
+    <%= form.submit 'Create Polygon' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', polygons_path %>
+
+
+<script>
+  mapboxgl.accessToken = '<%= ENV['MAPBOX_API_KEY'] %>';
+
+  // Initialize the Mapbox map
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11', // You can change the map style
+    center: [-74.5, 40], // Initial center coordinates
+    zoom: 9 // Initial zoom level
+  });
+
+  // Add navigation controls (pan, zoom, etc.)
+  map.addControl(new mapboxgl.NavigationControl());
+
+  // Initialize a drawing tool
+  const draw = new MapboxDraw({
+    displayControlsDefault: false,
+    controls: {
+      polygon: true, // Enable polygon drawing
+      trash: true // Allow users to delete drawn shapes
+    }
+  });
+
+  map.addControl(draw);
+
+  // When the user creates a polygon, store its coordinates in the form input
+  map.on('draw.create', function (e) {
+    const geojson = draw.getAll();
+    if (geojson.features.length > 0) {
+      const coordinates = geojson.features[0].geometry.coordinates;
+      document.querySelector('#polygon_coordinates').value = JSON.stringify(coordinates);
+    }
+  });
+</script>
