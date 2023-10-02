@@ -9,9 +9,9 @@ class OrderItemsController < ApplicationController
     @order_item.product = @product
     @order_item.order = current_order
     if @order_item.save
-      redirect_to cart_path, notice: 'Product added to cart.'
+      redirect_to panier_path, notice: 'Produit ajouté au Panier !'
     else
-      redirect_to cart_path, notice: 'Not Added'
+      redirect_to panier_path, notice: 'Problème !!'
     end
   end
 

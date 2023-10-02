@@ -6,9 +6,7 @@ Rails.application.routes.draw do
   get '/boutique', to: 'pages#about'
   get '/livraison', to: 'pages#delivery'
 
-  resources :categories do
-    resources :products, only: %i[new create]
-  end
+  resources :categories
 
   resources :products, only: %i[new create]
 

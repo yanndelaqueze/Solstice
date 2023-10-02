@@ -1,3 +1,8 @@
-<div id="cart-item">
-    <%= render 'cart_items'%>
+<h1 class= "title">Mon panier</h1>
+<div class="container">
+  <div id="cart-items">
+    <% @order_items.each do |order_item| %>
+      <%= render 'cart_item', order_item: order_item %>
+    <% end %>
+  </div>
 </div>
