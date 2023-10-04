@@ -5,6 +5,7 @@ class Order < ApplicationRecord
   after_validation :geocode, if: :will_save_change_to_delivery_address?
   TRANSPORT = ["Collect","Delivery"]
   validates :transport, inclusion: { in: TRANSPORT }
+  validates :delivery_address, :delivery_instructions, presence: true, if: :delivery_transport?
 
   def subtotal
     order_items.sum { |item| item.price }
@@ -15,5 +16,9 @@ class Order < ApplicationRecord
 
   def total
     subtotal + delivery_cost
+  end
+
+  def delivery_transport?
+    transport == 'delivery'
   end
 end

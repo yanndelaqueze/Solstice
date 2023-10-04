@@ -14,10 +14,12 @@
         <div class="delivery-form">
           <%= simple_form_for [@order] do |f| %>
             <%= f.input :transport, label: "Mode de livraison :", as: :radio_buttons, collection_wrapper_tag: "div", collection_wrapper_class: 'category-wrapper', item_wrapper_class: 'category-item', input_html: {class: 'category-selector'}, collection: Order::TRANSPORT%>
-            <%= f.input :delivery_address,
-            input_html: {data: {address_autocomplete_target: "address"}, class: "d-none"},
-            wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}}, label: "Adresse de livraison :"%>
-            <%= f.input :delivery_instructions, as: :text, label: "Instructions de livraison :" %>
+            <div id="delivery-fields" style="display: none;" >
+              <%= f.input :delivery_address,
+              input_html: {data: {address_autocomplete_target: "address"}, class: "d-none"},
+              wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}}, label: "Adresse de livraison :"%>
+              <%= f.input :delivery_instructions, as: :text, label: "Instructions de livraison :" %>
+            </div>
             <%= f.input :phone, label: "Numéro à contacter :" %>
             <%= f.input :date, as: :date, html5: true, label: "Date de livraison souhaitée :"  %>
             <%= f.submit "Valider", class: "btn-action"  %>
@@ -30,3 +32,26 @@
     </div>
   </div>
 </div>
+
+<script>
+  // Function to show or hide the delivery fields based on the selected transport value
+  function toggleDeliveryFields() {
+    const selectedTransport = document.querySelector('input[name="order[transport]"]:checked').value;
+    const deliveryFields = document.querySelector('#delivery-fields');
+
+    if (selectedTransport === 'Delivery') {
+      deliveryFields.style.display = 'block';
+    } else {
+      deliveryFields.style.display = 'none';
+    }
+  }
+
+  // Initially check and display the delivery fields when the page loads
+  toggleDeliveryFields();
+
+  // Add an event listener to all radio buttons for "transport"
+  document.querySelectorAll('input[name="order[transport]"]').forEach(function(radio) {
+    radio.addEventListener('change', toggleDeliveryFields);
+  });
+</script>
+In this modified script, we create a toggleDeliveryFields function that checks the currently selected radio button and displays or hides the "delivery-fields" accordingly. We initially call this function when the page loads to handle the pre-selected value. We also attach the same function to the change event of all radio buttons, ensuring that the fields are updated when the user interacts with them. This should fix the issue and ensure that the "delivery-fields" are displayed correctly on page load and when the radio button is changed.
