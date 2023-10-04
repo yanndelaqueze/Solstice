@@ -2,7 +2,6 @@ class OrderItemsController < ApplicationController
   before_action :set_order_item, only: [:update, :destroy]
   skip_before_action :authenticate_user!, only: [ :create, :update, :destroy]
 
-  # Create a new order item
   def create
     @product = Product.find(params[:product_id])
     @order_item = OrderItem.new(order_item_params)
@@ -11,11 +10,10 @@ class OrderItemsController < ApplicationController
     if @order_item.save
       redirect_to panier_path, notice: 'Produit ajouté au Panier !'
     else
-      redirect_to panier_path, notice: 'Problème !!'
+      redirect_to product_path(@product), notice: 'Merci de remplir tous les champs'
     end
   end
 
-  # Update the price of an order item
   def update
     if @order_item.update(order_item_params)
       flash[:success] = "Article mis à jour"
@@ -25,7 +23,6 @@ class OrderItemsController < ApplicationController
     redirect_to panier_path
   end
 
-  # Remove an order item from the cart
   def destroy
     @order_item.destroy
     flash[:success] = "Article supprimé de votre panier"
