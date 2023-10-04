@@ -12,6 +12,12 @@ class OrdersController < ApplicationController
   end
 
   def update
+    if @order.update(order_params)
+      flash[:success] = "Order updated successfully."
+    else
+      flash[:error] = "Failed to update order."
+    end
+    redirect_to panier_path
   end
 
   def destroy
@@ -19,8 +25,14 @@ class OrdersController < ApplicationController
     redirect_to orders_path, status: :see_other
   end
 
+  private
+
   def set_order
-    @order = Order.find(params[:id])
+    # @order = Order.find(params[:id])
+    @order = current_order
   end
 
+  def order_params
+    params.require(:order).permit(:delivery_address, :transport)
+  end
 end
