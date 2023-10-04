@@ -3,6 +3,8 @@ class Order < ApplicationRecord
   belongs_to :user, optional: true
   geocoded_by :delivery_address
   after_validation :geocode, if: :will_save_change_to_delivery_address?
+  TRANSPORT = ["Collect","Delivery"]
+  validates :transport, inclusion: { in: TRANSPORT }
 
   def subtotal
     order_items.sum { |item| item.price }

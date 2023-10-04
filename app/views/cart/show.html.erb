@@ -1,9 +1,24 @@
 <h1 class= "title">Mon panier</h1>
 <div class="container">
-<h3><%= pluralize(current_order.order_items.size, 'article') %> / Total : <%= current_order.subtotal  %>€ </h3>
+  <h3><%= pluralize(current_order.order_items.size, 'article') %> / Total : <%= current_order.subtotal  %>€ </h3>
   <div id="cart-items">
     <% @order_items.each do |order_item| %>
       <%= render 'cart_item', order_item: order_item %>
     <% end %>
   </div>
+  <h3>Adresse de Livraison</h3>
+  <div class="delivery-form">
+    <%= simple_form_for [@order] do |f| %>
+    <%= f.input :delivery_address,
+    input_html: {data: {address_autocomplete_target: "address"}},
+    wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}}
+    %>
+    <%= f.submit "VALIDER"  %>
+    <% end %>
+
+  </div>
+
+  <div data-controller="test">
+  </div>
+
 </div>
