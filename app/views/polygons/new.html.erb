@@ -7,7 +7,6 @@
       <%= form.hidden_field :coordinates, id: "polygon_coordinates" %>
     </div>
 
-
     <div id="map" style="width: 100%; height: 400px;"></div>
 
     <div class="actions">
@@ -18,14 +17,10 @@
   <%= link_to 'Back', admin_path %>
 </div>
 
-
-
-
-
-
 <script>
   mapboxgl.accessToken = '<%= ENV['MAPBOX_API_KEY'] %>';
 
+  console.log("Coucou");
   // Initialize the Mapbox map
   const map = new mapboxgl.Map({
     container: 'map',
@@ -35,7 +30,7 @@
     attributionControl: true
   });
 
-  // Add navigation controls (pan, zoom, etc.)
+  // Add navigation controls (pan, zoom, etc.) --> NOT DISPLAYING, CHECK WHY !!
   map.addControl(new mapboxgl.NavigationControl());
 
   // Initialize a drawing tool
@@ -52,9 +47,12 @@
   // When the user creates a polygon, store its coordinates in the form input
   map.on('draw.create', function (e) {
     const geojson = draw.getAll();
+    console.log(geojson);
     if (geojson.features.length > 0) {
-      const coordinates = geojson.features[0].geometry.coordinates;
+      const coordinates = geojson.features[0].geometry.coordinates[0];
+      console.log(coordinates);
       document.querySelector('#polygon_coordinates').value = JSON.stringify(coordinates);
+      console.log(JSON.stringify(coordinates));
     }
   });
 </script>
