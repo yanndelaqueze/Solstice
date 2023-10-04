@@ -10,7 +10,9 @@
     <div class="order-options">
       <div class="transport">
         <h3>Livraison / Collecte</h3>
-        <p>Adresse : <%= @order.delivery_address %></p>
+        <% if @order.transport === "Delivery" %>
+          <p>Adresse : <%= @order.delivery_address %></p>
+        <% end %>
         <div class="delivery-form">
           <%= simple_form_for [@order] do |f| %>
             <%= f.input :transport, label: "Mode de livraison :", as: :radio_buttons, collection_wrapper_tag: "div", collection_wrapper_class: 'category-wrapper', item_wrapper_class: 'category-item', input_html: {class: 'category-selector'}, collection: Order::TRANSPORT%>
