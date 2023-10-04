@@ -18,9 +18,9 @@ class OrderItemsController < ApplicationController
   # Update the price of an order item
   def update
     if @order_item.update(order_item_params)
-      flash[:success] = "Order item updated successfully."
+      flash[:success] = "Article mis à jour"
     else
-      flash[:error] = "Failed to update order item."
+      flash[:error] = "Echec"
     end
     redirect_to panier_path
   end
@@ -28,7 +28,7 @@ class OrderItemsController < ApplicationController
   # Remove an order item from the cart
   def destroy
     @order_item.destroy
-    flash[:success] = "Order item removed from your cart."
+    flash[:success] = "Article supprimé de votre panier"
     redirect_to panier_path
   end
 

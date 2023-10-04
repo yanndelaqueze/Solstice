@@ -2,12 +2,20 @@
   display: flex;
 
   .cart-items {
-    width: 70%;
+    width: 60%;
+    margin-top: 1em;
   }
 
   .order-options {
-    width: 30%;
-    padding-top: 1em;
+    margin-top: 1em;
+    margin-left: 1em;
+    width: 40%;
+    padding: 1em;
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+
+  .category-wrapper {
     padding-left: 1em;
   }
 }

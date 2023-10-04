@@ -14,7 +14,7 @@
   .cart-item-actions {
     display: flex;
     align-items: center;
-    width: 7%;
+    width: 10%;
     justify-content: space-between;
   }
 
@@ -30,7 +30,6 @@
       padding-top: 1em;
       padding-right: 1em;
       padding-bottom: 1em;
-
     }
   }
   .cart-item-images {
@@ -41,5 +40,4 @@
   .cart-item-images img {
     height: 6em;
   }
-
 }

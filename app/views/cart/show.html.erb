@@ -1,8 +1,8 @@
 <h1 class= "title">Mon panier</h1>
 <div class="container">
-  <h3><%= pluralize(current_order.order_items.size, 'article') %> / Total : <%= current_order.subtotal  %>€ </h3>
   <div class="cart">
     <div class="cart-items">
+    <h4><%= pluralize(current_order.order_items.size, 'article') %> (total : <%= current_order.subtotal  %>€)</h4>
       <% @order_items.each do |order_item| %>
         <%= render 'cart_item', order_item: order_item %>
       <% end %>
@@ -27,9 +27,6 @@
             <%= f.submit "Valider", class: "btn-action"  %>
           <% end %>
         </div>
-      </div>
-      <div class="date">
-        <p>DATE</p>
       </div>
     </div>
   </div>
@@ -56,4 +53,3 @@
     radio.addEventListener('change', toggleDeliveryFields);
   });
 </script>
-In this modified script, we create a toggleDeliveryFields function that checks the currently selected radio button and displays or hides the "delivery-fields" accordingly. We initially call this function when the page loads to handle the pre-selected value. We also attach the same function to the change event of all radio buttons, ensuring that the fields are updated when the user interacts with them. This should fix the issue and ensure that the "delivery-fields" are displayed correctly on page load and when the radio button is changed.
