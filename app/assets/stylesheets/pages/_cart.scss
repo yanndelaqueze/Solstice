@@ -1,0 +1,13 @@
+.cart {
+  display: flex;
+
+  .cart-items {
+    width: 70%;
+  }
+
+  .order-options {
+    width: 30%;
+    padding-top: 1em;
+    padding-left: 1em;
+  }
+}
