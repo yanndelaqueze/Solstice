@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_02_115907) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_04_083838) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -74,6 +74,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_115907) do
     t.string "delivery_address"
     t.float "latitude"
     t.float "longitude"
+    t.string "transport", default: "collect"
+    t.datetime "date"
+    t.text "delivery_instructions"
+    t.string "phone"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
