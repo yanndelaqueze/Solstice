@@ -23,7 +23,7 @@
               <%= f.input :delivery_instructions, as: :text, label: "Instructions de livraison :" %>
             </div>
             <%= f.input :phone, label: "Numéro à contacter :" %>
-            <%= f.input :date, as: :date, html5: true, label: "Date de livraison souhaitée :"  %>
+            <%= f.input :date, as: :date, html5: true, label: "Date de livraison souhaitée :" ,input_html: { id: "order_date" } %>
             <%= f.submit "Valider", class: "btn-action"  %>
           <% end %>
         </div>
@@ -52,4 +52,26 @@
   document.querySelectorAll('input[name="order[transport]"]').forEach(function(radio) {
     radio.addEventListener('change', toggleDeliveryFields);
   });
+
+
+  //Date constraint
+
+  document.addEventListener('DOMContentLoaded', () => {
+  const dateInput = document.getElementById('order_date');
+
+  dateInput.addEventListener('change', () => {
+    const selectedDate = new Date(dateInput.value);
+    const today = new Date();
+
+    // Calculate the minimum allowed date (2 days from now)
+    const minDate = new Date(today);
+    minDate.setDate(today.getDate() + 2);
+
+    if (selectedDate < minDate) {
+      alert('Merci de choisir une date dans 2 jours ou plus');
+      dateInput.value = '';
+    }
+  });
+});
+
 </script>
