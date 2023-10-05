@@ -2,7 +2,14 @@ class OrdersController < ApplicationController
   before_action :set_order, only: %i[show edit update destroy]
 
   def index
-    @orders = Order.all
+    @status_options = Order.distinct.pluck(:status)
+    @selected_status = params[:filter] && params[:filter][:status]
+
+    if @selected_status.present?
+      @orders = Order.where(status: @selected_status)
+    else
+      @orders = Order.all
+    end
   end
 
   def show
@@ -33,6 +40,6 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:delivery_address, :transport, :date, :delivery_instructions, :phone)
+    params.require(:order).permit(:delivery_address, :transport, :date, :delivery_instructions, :phone, :status)
   end
 end

@@ -22,15 +22,33 @@
             <a class="nav-link admin-btn" href="<%=admin_path%>">Admin</a>
           </li>
           <% end %>
+
           <li>
-            <a class="nav-link" href="<%= creations_path %>"><i class="fa-solid fa-store"></i> Boutique en ligne</a>
+            <a class="nav-link" href="<%= creations_path %>"><i class="fa-solid fa-store"></i> Boutique</a>
           </li>
+
           <li>
             <a class="nav-link" href="<%= polygon_path(Polygon.last) %>"><i class="fa-solid fa-truck"></i> Livraison</a>
           </li>
-          <li>
-            <a class="nav-link" href="<%= panier_path %>"><i class="fa-solid fa-cart-shopping"></i> Mon Panier</a>
-          </li>
+
+          <div class="cart-navbar">
+            <li>
+              <a class="nav-link" id="cart-button" href="<%= panier_path %>"><i class="fa-solid fa-cart-shopping"></i> Panier</a>
+            </li>
+            <div class="pastille <%= "d-none" if current_order.order_items.size == 0 %>">
+              <% if current_order.order_items.size > 9 %>
+                <%= "9+" %>
+              <% else %>
+                <%= current_order.order_items.size %>
+              <% end %>
+            </div>
+            <!-- Pop Up Cart Content-->
+            <div class="cart-content" id="cart-content">
+              <p>Dans votre panier :</p>
+              <p><%= current_order.order_items.size  %></p>
+            </div>
+          </div>
+
           <li class="nav-item dropdown">
             <%= image_tag("avatar.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" }) %>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -43,3 +61,22 @@
     </div>
   </div>
 </div>
+
+
+<script>
+
+const cartButton = document.querySelector('#cart-button');
+const cartContent = document.querySelector('#cart-content');
+
+cartContent.classList.add("cart-content-displayed");
+
+
+cartButton.addEventListener('mouseenter', () => {
+  cartContent.style.display = 'block';
+  });
+
+cartButton.addEventListener('mouseleave', () => {
+  cartContent.style.display = 'none';
+  });
+
+</script>

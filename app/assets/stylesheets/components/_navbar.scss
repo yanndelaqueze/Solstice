@@ -15,3 +15,34 @@
 .session-info {
   font-size: 10px;
 }
+
+.cart {
+  position: relative;
+}
+
+#cart-content {
+  display: none;
+}
+
+.cart-content-displayed {
+  position: absolute;
+  display: flex;
+  background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border-radius: 1%;
+}
+
+.pastille {
+  height: 1em;
+  width: 1em;
+  background-color: $pink;
+  border: $pink;
+  border-radius: 50%;
+  color: white;
+  position: absolute;
+  top: 35%;
+  left: 89%;
+}
