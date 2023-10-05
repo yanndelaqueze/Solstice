@@ -11,9 +11,9 @@
   </div>
   <div class="product-customization">
     <h3 class="product-name"><%= @product.name %></h3>
-    <p>Livraison Petite Île et environs <a class="nav-link" href="<%= livraison_path %>"><i class="fa-solid fa-truck"></i> Options de Livraison</a></p>
+    <p><i class="fa-solid fa-truck"></i> Livraison Petite Île et environs <a class="nav-link" href="<%= polygon_path(Polygon.last) %>"> (voir la zone de livraison)</a></p>
 
-    <p>Click & Collect gratuit</p>
+    <p><i class="fa-solid fa-store"></i> Click & Collect gratuit</p>
     <p>------------------------</p>
     <p>Afin que Solstice réalise le bouquet de vos rêves :</p>
     <div class="custom-form">
