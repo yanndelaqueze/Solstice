@@ -3,8 +3,6 @@ Rails.application.routes.draw do
   get 'creations', to: 'shop#index'
   get '/panier', to: 'cart#show'
   get '/admin', to: 'pages#admin'
-  get '/boutique', to: 'pages#about'
-  get '/livraison', to: 'pages#delivery'
 
   resources :categories
 

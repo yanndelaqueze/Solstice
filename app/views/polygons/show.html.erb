@@ -1,9 +1,11 @@
 <h1 class= "title">Zone de Livraison</h1>
 <div class="container">
-  <% if current_user.present? && current_user.admin %>
-    <%= link_to "Modifier", new_polygon_path, class:"btn-action"%>
-  <% end %>
-  <div id="map" style="width: 100%; height: 400px;"></div>
+  <div class="map">
+    <div id="map" style="width: 100%; height: 400px;"></div>
+    <% if current_user.present? && current_user.admin %>
+      <%= link_to "Modifier", new_polygon_path, class:"btn-action action-button"%>
+    <% end %>
+  </div>
 </div>
 
 <script>
