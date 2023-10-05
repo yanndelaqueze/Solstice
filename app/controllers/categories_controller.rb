@@ -7,7 +7,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @products = @category.products
+    @products = @category.products.order(order: :asc)
     @product = Product.new
   end
 

@@ -1,0 +1,9 @@
+<h1 class= "title">Commandes</h1>
+<div class="container">
+  <div class="orders">
+    <h4><%= pluralize(@orders.where(status: "pending").size, 'commande') %> en cours</h4>
+    <% @orders.each do |order| %>
+      <%= render 'card_order', order: order %>
+    <% end %>
+  </div>
+</div>
