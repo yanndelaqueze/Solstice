@@ -21,12 +21,13 @@
   mapboxgl.accessToken = '<%= ENV['MAPBOX_API_KEY'] %>';
 
   console.log("Coucou");
+
   // Initialize the Mapbox map
   const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v12',
-    center: [55.565520, -21.355710], // Initial center coordinates
-    zoom: 12, // Initial zoom level
+    center: [55.565520, -21.355710],
+    zoom: 12,
     attributionControl: true
   });
 

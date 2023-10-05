@@ -8,9 +8,8 @@ application.register("test", TestController);
 import AddressAutocompleteController from "./address_autocomplete_controller";
 application.register("address-autocomplete", AddressAutocompleteController);
 
+import DeliveryMapController from "./delivery_map_controller";
+application.register("delivery-map", DeliveryMapController);
+
 import HelloController from "./hello_controller";
 application.register("hello", HelloController);
-
-// Lazy load controllers as they appear in the DOM (remember not to preload controllers in import map!)
-// import { lazyLoadControllersFrom } from "@hotwired/stimulus-loading"
-// lazyLoadControllersFrom("controllers", application)
