@@ -34,7 +34,6 @@
     </div>
   </div>
   <ul class="cart-item-images">
-    <p>Photos (non contractuelles) :</p>
     <% order_item.product.photos.each do |photo| %>
       <img src="<%= cl_image_path photo.key %>" alt="">
     <% end %>
