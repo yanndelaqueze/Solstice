@@ -35,7 +35,9 @@
             <%= f.input :date, as: :date, html5: true, label: "Date de livraison souhaitée :" ,input_html: { id: "order_date" } %>
             <%= f.submit "Valider", class: "btn-action"  %>
           <% end %>
-          <%= @order.in_delivery_area?  %>
+          <% if !@order.in_delivery_area?  %>
+            <p class="warning-delivery alert-danger">Désolé, la livraison est impossible à cette adresse</p>
+          <% end %>
         </div>
       </div>
     </div>

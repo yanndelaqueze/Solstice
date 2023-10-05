@@ -9,6 +9,7 @@ class Order < ApplicationRecord
   before_create :set_default_date
   before_create :subtotal
   before_create :delivery_cost
+  before_save :set_transport
 
   def subtotal
     order_items ? order_items.sum { |item| item.price } : 0
@@ -36,24 +37,23 @@ class Order < ApplicationRecord
     for i in 0...n
       xi, yi = polygon_coordinates[i]
       xj, yj = polygon_coordinates[j]
-
       intersect = ((yi > latitude) != (yj > latitude)) &&
-                 (longitude < (xj - xi) * (latitude - yi) / (yj - yi) + xi)
-
+                  (longitude < ((xj - xi) * (latitude - yi) / (yj - yi)) + xi)
       if intersect
         inside = !inside
       end
-
       j = i
     end
-
     return inside
   end
-
 
   private
 
   def set_default_date
     self.date ||= 2.days.from_now.to_date
+  end
+
+  def set_transport
+    self.transport = self.in_delivery_area? ? 'Delivery' : 'Collect'
   end
 end
