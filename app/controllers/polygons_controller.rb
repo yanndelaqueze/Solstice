@@ -17,7 +17,7 @@ class PolygonsController < ApplicationController
     @polygon = Polygon.new(polygon_params)
 
     if @polygon.save
-      redirect_to polygons_path, notice: 'Polygon was successfully created.'
+      redirect_to polygon_path(Polygon.last), notice: 'Polygon was successfully created.'
     else
       render :new
     end
@@ -26,7 +26,7 @@ class PolygonsController < ApplicationController
   private
 
   def polygon_params
-    params.require(:polygon).permit(:name, :coordinates)
+    params.require(:polygon).permit(:coordinates)
   end
 
 end
