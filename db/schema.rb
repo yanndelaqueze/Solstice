@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_05_073707) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_05_075742) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,8 +78,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_05_073707) do
     t.datetime "date"
     t.text "delivery_instructions"
     t.string "phone"
-    t.float "delivery_cost"
-    t.boolean "delivery_possible"
+    t.float "delivery_cost", default: 0.0
+    t.boolean "delivery_possible", default: false
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
