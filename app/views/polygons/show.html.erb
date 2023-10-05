@@ -21,6 +21,9 @@ const map = new mapboxgl.Map({
 
 const coordinates = [<%= JSON.parse(@polygon.coordinates) %>]
 
+map.addControl(new mapboxgl.NavigationControl());
+
+
 map.on('load', function () {
     map.addLayer({
       'id': 'polygon',
