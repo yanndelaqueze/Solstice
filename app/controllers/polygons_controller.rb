@@ -2,6 +2,7 @@ class PolygonsController < ApplicationController
 
   def show
     @polygon = Polygon.last
+    @order = current_order
   end
 
   def index

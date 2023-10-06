@@ -32,17 +32,25 @@
   padding: 1em;
   margin-top: 1em;
   margin-bottom: 1em;
-  border-radius: 1%;
+  border-radius: 1em;
+  top: 52%;
+  left: 79%;
+  z-index: 100;
 }
 
-.pastille {
-  height: 1em;
-  width: 1em;
-  background-color: $pink;
-  border: $pink;
-  border-radius: 50%;
-  color: white;
-  position: absolute;
-  top: 35%;
-  left: 89%;
+.cart-content-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 6em;
+
+  img {
+    height: 100%;
+    border-radius: 0.5em;
+  }
+
+  .cart-content-item-info {
+    display: block;
+    padding-left: 1em;
+  }
 }

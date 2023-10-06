@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
     else
       flash[:error] = "Failed to update order."
     end
-    redirect_to panier_path
+    redirect_to request.referer
   end
 
   def destroy

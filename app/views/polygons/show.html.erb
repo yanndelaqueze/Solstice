@@ -1,12 +1,35 @@
-<h1 class= "title">Zone de Livraison</h1>
+
+<h1 class= "title">Livraison à Domicile :</h1>
+
 <div class="container">
-  <div class="map">
-    <div id="map" style="width: 100%; height: 400px;"></div>
-    <% if current_user.present? && current_user.admin %>
-      <%= link_to "Modifier", new_polygon_path, class:"btn-action action-button"%>
+  <div class="delivery-form">
+    <%= simple_form_for [@order] do |f| %>
+        <div class="address">
+            <p>Adresse de livraison :</p>
+            <p class="form-control"><%= @order.delivery_address %></p>
+        </div>
+          <%= f.input :delivery_address,
+          input_html: {data: {address_autocomplete_target: "address"}, class: "d-none"},
+          wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}}, label: "Choisir une adresse de livraison :"%>
+      <%= f.submit "Valider", class: "btn-action"  %>
+    <% end %>
+    <% if !@order.in_delivery_area?  %>
+      <p class="warning-delivery alert-danger mt-2">Désolé, la livraison est impossible à cette adresse 🙁</p>
+    <% else %>
+      <p class="warning-delivery alert-success mt-2">Youpi ! La livraison est possible à cette adresse 🎉</p>
     <% end %>
   </div>
+  <h2 class= "title">Zone de Livraison</h2>
+  <div class="container">
+    <div class="map">
+      <div id="map" style="width: 100%; height: 400px;"></div>
+      <% if current_user.present? && current_user.admin %>
+        <%= link_to "Modifier", new_polygon_path, class:"btn-action action-button"%>
+      <% end %>
+    </div>
+  </div>
 </div>
+
 
 <script>
 
@@ -14,7 +37,7 @@ mapboxgl.accessToken = '<%= ENV['MAPBOX_API_KEY'] %>';
 
 const map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/mapbox/streets-v12',
+  style: 'mapbox://styles/mapbox/streets-v11',
   center: [55.565520, -21.355710],
   zoom: 11
 });

@@ -45,7 +45,7 @@
 </div>
 
 <script>
-  // Function to show or hide the delivery fields based on the selected transport value
+  // 1- Show or hide the delivery fields based on the selected transport value
   function toggleDeliveryFields() {
     const selectedTransport = document.querySelector('input[name="order[transport]"]:checked').value;
     const deliveryFields = document.querySelector('#delivery-fields');
@@ -56,19 +56,15 @@
       deliveryFields.style.display = 'none';
     }
   }
-
   // Initially check and display the delivery fields when the page loads
   toggleDeliveryFields();
-
   // Add an event listener to all radio buttons for "transport"
   document.querySelectorAll('input[name="order[transport]"]').forEach(function(radio) {
     radio.addEventListener('change', toggleDeliveryFields);
   });
 
 
-  //Date constraint
-
-  document.addEventListener('DOMContentLoaded', () => {
+  //2- Date constraint in form (Day + 2 minimum)
   const dateInput = document.getElementById('order_date');
 
   dateInput.addEventListener('change', () => {
@@ -84,6 +80,5 @@
       dateInput.value = '';
     }
   });
-});
 
 </script>
