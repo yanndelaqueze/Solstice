@@ -33,40 +33,44 @@
 
 <script>
 
-mapboxgl.accessToken = '<%= ENV['MAPBOX_API_KEY'] %>';
+document.addEventListener('DOMContentLoaded', function () {
 
-const map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/mapbox/streets-v11',
-  center: [55.565520, -21.355710],
-  zoom: 11
-});
+  mapboxgl.accessToken = '<%= ENV['MAPBOX_API_KEY'] %>';
 
-const coordinates = [<%= JSON.parse(@polygon.coordinates) %>]
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [55.565520, -21.355710],
+    zoom: 11
+  });
 
-map.addControl(new mapboxgl.NavigationControl());
+  const coordinates = [<%= JSON.parse(@polygon.coordinates) %>]
+
+  map.addControl(new mapboxgl.NavigationControl());
 
 
-map.on('load', function () {
-    map.addLayer({
-      'id': 'polygon',
-      'type': 'fill',
-      'source': {
-        'type': 'geojson',
-        'data': {
-          'type': 'Feature',
-          'geometry': {
-            'type': 'Polygon',
-            'coordinates': coordinates
+  map.on('load', function () {
+      map.addLayer({
+        'id': 'polygon',
+        'type': 'fill',
+        'source': {
+          'type': 'geojson',
+          'data': {
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Polygon',
+              'coordinates': coordinates
+            }
           }
+        },
+        'layout': {},
+        'paint': {
+          'fill-color': '#F043AC',
+          'fill-opacity': 0.5
         }
-      },
-      'layout': {},
-      'paint': {
-        'fill-color': '#F043AC',
-        'fill-opacity': 0.5
-      }
+      });
     });
   });
+
 
 </script>

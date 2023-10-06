@@ -1,11 +1,12 @@
 .mapboxgl-ctrl-geocoder {
   max-width: none;
-  width: 100%;
-  box-shadow: none;
-  background-color: transparent;
+  width: 100% !important;
+  box-shadow: none !important;
+  background-color: #f4f4f4 !important;
   display: flex;
   align-items: center;
   position: relative;
+  font-family: $body-font !important;
 
   .mapboxgl-ctrl-geocoder--icon-loading {
     display: none;

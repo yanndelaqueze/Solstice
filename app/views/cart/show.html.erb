@@ -8,6 +8,9 @@
       <% end %>
     </div>
     <div class="order-options">
+
+
+
       <div class="transport">
         <h3>Livraison / Collecte</h3>
         <div class="delivery-form">
@@ -15,13 +18,19 @@
             <%= f.input :transport, label: "Mode de livraison :", as: :radio_buttons, collection_wrapper_tag: "div", collection_wrapper_class: 'category-wrapper', item_wrapper_class: 'category-item', input_html: {class: 'category-selector'}, collection: Order::TRANSPORT%>
             <div id="delivery-fields" style="display: none;" >
               <div class="address">
-                <% if @order.transport === "Delivery" && @order.delivery_address %>
+                <% if @order.delivery_address %>
                   <p>Adresse de livraison :</p>
                   <p class="form-control"><%= @order.delivery_address %></p>
                 <% end %>
               </div>
+            <div class="form-group">
+              <div id="geocoder" class="form-group">
+                <%= f.input :delivery_address, as: :hidden, class: "form-control", label: "Changer l'adresse de livraison :"%>
+              </div>
+            </div>
+            <!--
               <% if @order.delivery_address %>
-                <%= f.input :delivery_address,
+                <%= f.input :delivery_address, id:"address-autocomplete-input",
                 input_html: {data: {address_autocomplete_target: "address"}, class: "d-none"},
                 wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}}, label: "Changer l'adresse de livraison :"%>
               <% else %>
@@ -29,6 +38,7 @@
                 input_html: {data: {address_autocomplete_target: "address"}, class: "d-none"},
                 wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}}, label: "Choisir une adresse de livraison :"%>
               <% end %>
+            -->
               <%= f.input :delivery_instructions, as: :text, label: "Instructions de livraison :" %>
             </div>
             <%= f.input :phone, label: "Numéro à contacter :" %>
@@ -79,6 +89,28 @@
       alert('Merci de choisir une date dans 2 jours ou plus');
       dateInput.value = '';
     }
+  });
+
+  //3- Address Autocomplete
+
+  mapboxgl.accessToken = '<%= ENV['MAPBOX_API_KEY'] %>';
+
+  const geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    types: 'country,region,place,postcode,locality,neighborhood, address'
+    });
+
+  geocoder.addTo('#geocoder');
+  const results = document.getElementById('result');
+  const addressInput = document.getElementById('order_delivery_address');
+
+  geocoder.on('result', (e) => {
+    console.log(e.result.place_name);
+    addressInput.value = e.result.place_name
+  });
+
+  // Clear results container when search is cleared.
+  geocoder.on('clear', () => {
   });
 
 </script>
