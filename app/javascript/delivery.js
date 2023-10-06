@@ -63,3 +63,27 @@ geocoder.on("result", (e) => {
 
 // Clear results container when search is cleared.
 geocoder.on("clear", () => {});
+
+// Initialize a drawing tool
+const draw = new MapboxDraw({
+  displayControlsDefault: false,
+  controls: {
+    polygon: true, // Enable polygon drawing
+    trash: true, // Allow users to delete drawn shapes
+  },
+});
+
+map.addControl(draw);
+
+// When the user creates a polygon, store its coordinates in the form input
+map.on("draw.create", function (e) {
+  const geojson = draw.getAll();
+  console.log(geojson);
+  if (geojson.features.length > 0) {
+    const coordinates = geojson.features[0].geometry.coordinates[0];
+    console.log(coordinates);
+    document.querySelector("#polygon_coordinates").value =
+      JSON.stringify(coordinates);
+    console.log(JSON.stringify(coordinates));
+  }
+});
