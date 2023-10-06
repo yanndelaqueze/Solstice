@@ -5,49 +5,11 @@
       <%= form.hidden_field :coordinates, id: "polygon_coordinates" %>
     </div>
     <div class="map">
-      <div id="map" style="width: 100%; height: 400px;"></div>
+      <div id="map" style="width: 100%; height: 400px;" data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
       <div class="actions">
         <%= form.submit 'Enregistrer', class:"btn-action action-button" %>
       </div>
     </div>
   <% end %>
 </div>
-
-<script>
-  mapboxgl.accessToken = '<%= ENV['MAPBOX_API_KEY'] %>';
-
-  // Initialize the Mapbox map
-  const map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v12',
-    center: [55.565520, -21.355710],
-    zoom: 12,
-    attributionControl: true
-  });
-
-  // Add navigation controls (pan, zoom, etc.) --> NOT DISPLAYING, CHECK WHY !!
-  map.addControl(new mapboxgl.NavigationControl());
-
-  // Initialize a drawing tool
-  const draw = new MapboxDraw({
-    displayControlsDefault: false,
-    controls: {
-      polygon: true, // Enable polygon drawing
-      trash: true // Allow users to delete drawn shapes
-    }
-  });
-
-  map.addControl(draw);
-
-  // When the user creates a polygon, store its coordinates in the form input
-  map.on('draw.create', function (e) {
-    const geojson = draw.getAll();
-    console.log(geojson);
-    if (geojson.features.length > 0) {
-      const coordinates = geojson.features[0].geometry.coordinates[0];
-      console.log(coordinates);
-      document.querySelector('#polygon_coordinates').value = JSON.stringify(coordinates);
-      console.log(JSON.stringify(coordinates));
-    }
-  });
-</script>
+<%= javascript_include_tag 'draw_delivery_area' %>
