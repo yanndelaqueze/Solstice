@@ -2,6 +2,9 @@ console.log("Draw Delivery Area");
 
 const mapElement = document.getElementById("map");
 const mapboxApiKey = mapElement.getAttribute("data-mapbox-api-key");
+const polygonCoordinates = [
+  JSON.parse(mapElement.getAttribute("data-polygon-coordinates")),
+];
 
 mapboxgl.accessToken = mapboxApiKey;
 
@@ -39,4 +42,27 @@ map.on("draw.create", function (e) {
       JSON.stringify(coordinates);
     console.log(JSON.stringify(coordinates));
   }
+});
+
+//Display the current Polygon on Map
+map.on("load", function () {
+  map.addLayer({
+    id: "polygon",
+    type: "fill",
+    source: {
+      type: "geojson",
+      data: {
+        type: "Feature",
+        geometry: {
+          type: "Polygon",
+          coordinates: polygonCoordinates,
+        },
+      },
+    },
+    layout: {},
+    paint: {
+      "fill-color": "#F043AC",
+      "fill-opacity": 0.5,
+    },
+  });
 });
