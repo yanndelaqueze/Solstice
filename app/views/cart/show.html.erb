@@ -8,9 +8,6 @@
       <% end %>
     </div>
     <div class="order-options">
-
-
-
       <div class="transport">
         <h3>Livraison / Collecte</h3>
         <div class="delivery-form">
@@ -95,15 +92,16 @@
 
   mapboxgl.accessToken = '<%= ENV['MAPBOX_API_KEY'] %>';
 
+  // Initiate Geocoder
   const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     types: 'country,region,place,postcode,locality,neighborhood, address'
     });
-
   geocoder.addTo('#geocoder');
   const results = document.getElementById('result');
   const addressInput = document.getElementById('order_delivery_address');
 
+  // Get results into input field
   geocoder.on('result', (e) => {
     console.log(e.result.place_name);
     addressInput.value = e.result.place_name

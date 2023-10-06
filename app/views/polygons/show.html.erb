@@ -8,11 +8,17 @@
             <p>Adresse de livraison :</p>
             <p class="form-control"><%= @order.delivery_address %></p>
         </div>
-          <%= f.input :delivery_address,
-          input_html: {data: {address_autocomplete_target: "address"}, class: "d-none"},
-          wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}}, label: "Choisir une adresse de livraison :"%>
+        <div class="form-group">
+          <div id="geocoder" class="form-group">
+            <%= f.input :delivery_address, as: :hidden, class: "form-control", label: "Vérifier l'adresse de livraison :"%>
+          </div>
+        </div>
       <%= f.submit "Valider", class: "btn-action"  %>
     <% end %>
+
+
+
+
     <% if !@order.in_delivery_area?  %>
       <p class="warning-delivery alert-danger mt-2">Désolé, la livraison est impossible à cette adresse 🙁</p>
     <% else %>
@@ -33,22 +39,22 @@
 
 <script>
 
-document.addEventListener('DOMContentLoaded', function () {
-
   mapboxgl.accessToken = '<%= ENV['MAPBOX_API_KEY'] %>';
 
+
+  // Display Map
   const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
     center: [55.565520, -21.355710],
     zoom: 11
   });
-
-  const coordinates = [<%= JSON.parse(@polygon.coordinates) %>]
-
   map.addControl(new mapboxgl.NavigationControl());
 
+  // Get polygon coordinates
+  const coordinates = [<%= JSON.parse(@polygon.coordinates) %>]
 
+  //Display the Polygon on Map
   map.on('load', function () {
       map.addLayer({
         'id': 'polygon',
@@ -70,6 +76,32 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
     });
+
+  // Get Order Address coordinates
+    const addressCoords = [<%= @order.longitude%>, <%= @order.latitude%>]
+
+  // Add Marker to Map
+  const marker = new mapboxgl.Marker()
+  .setLngLat(addressCoords)
+  .addTo(map);
+
+  // Initiate Geocoder
+  const geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    types: 'country,region,place,postcode,locality,neighborhood, address'
+    });
+  geocoder.addTo('#geocoder');
+  const results = document.getElementById('result');
+  const addressInput = document.getElementById('order_delivery_address');
+
+  // Get results into input field
+  geocoder.on('result', (e) => {
+    console.log(e.result.place_name);
+    addressInput.value = e.result.place_name
+  });
+
+  // Clear results container when search is cleared.
+  geocoder.on('clear', () => {
   });
 
 

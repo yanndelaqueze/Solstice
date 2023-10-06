@@ -12,6 +12,10 @@
     display: none;
   }
 
+  .mapboxgl-ctrl-geocoder--icon-close {
+    background: transparent !important;
+  }
+
   .mapboxgl-ctrl-geocoder--button {
     border: none;
     background-color: white;
