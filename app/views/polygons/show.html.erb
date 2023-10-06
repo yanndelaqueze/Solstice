@@ -9,16 +9,12 @@
             <p class="form-control"><%= @order.delivery_address %></p>
         </div>
         <div class="form-group">
-          <div id="geocoder" class="form-group">
+          <div id="geocoder" class="form-group" data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
             <%= f.input :delivery_address, as: :hidden, class: "form-control", label: "Vérifier l'adresse de livraison :"%>
           </div>
         </div>
       <%= f.submit "Valider", class: "btn-action"  %>
     <% end %>
-
-
-
-
     <% if !@order.in_delivery_area?  %>
       <p class="warning-delivery alert-danger mt-2">Désolé, la livraison est impossible à cette adresse 🙁</p>
     <% else %>
@@ -28,81 +24,11 @@
   <h2 class= "title">Zone de Livraison</h2>
   <div class="container">
     <div class="map">
-      <div id="map" style="width: 100%; height: 400px;"></div>
+      <div id="map" style="width: 100%; height: 400px;" data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>" data-polygon-coordinates="<%= @polygon.coordinates %>" data-address-coords="[<%= @order.longitude%>, <%= @order.latitude%>]"></div>
       <% if current_user.present? && current_user.admin %>
         <%= link_to "Modifier", new_polygon_path, class:"btn-action action-button"%>
       <% end %>
     </div>
   </div>
 </div>
-
-
-<script>
-
-  mapboxgl.accessToken = '<%= ENV['MAPBOX_API_KEY'] %>';
-
-
-  // Display Map
-  const map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11',
-    center: [55.565520, -21.355710],
-    zoom: 11
-  });
-  map.addControl(new mapboxgl.NavigationControl());
-
-  // Get polygon coordinates
-  const coordinates = [<%= JSON.parse(@polygon.coordinates) %>]
-
-  //Display the Polygon on Map
-  map.on('load', function () {
-      map.addLayer({
-        'id': 'polygon',
-        'type': 'fill',
-        'source': {
-          'type': 'geojson',
-          'data': {
-            'type': 'Feature',
-            'geometry': {
-              'type': 'Polygon',
-              'coordinates': coordinates
-            }
-          }
-        },
-        'layout': {},
-        'paint': {
-          'fill-color': '#F043AC',
-          'fill-opacity': 0.5
-        }
-      });
-    });
-
-  // Get Order Address coordinates
-    const addressCoords = [<%= @order.longitude%>, <%= @order.latitude%>]
-
-  // Add Marker to Map
-  const marker = new mapboxgl.Marker()
-  .setLngLat(addressCoords)
-  .addTo(map);
-
-  // Initiate Geocoder
-  const geocoder = new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken,
-    types: 'country,region,place,postcode,locality,neighborhood, address'
-    });
-  geocoder.addTo('#geocoder');
-  const results = document.getElementById('result');
-  const addressInput = document.getElementById('order_delivery_address');
-
-  // Get results into input field
-  geocoder.on('result', (e) => {
-    console.log(e.result.place_name);
-    addressInput.value = e.result.place_name
-  });
-
-  // Clear results container when search is cleared.
-  geocoder.on('clear', () => {
-  });
-
-
-</script>
+<%= javascript_include_tag 'delivery' %>

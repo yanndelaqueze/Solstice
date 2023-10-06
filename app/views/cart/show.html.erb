@@ -8,107 +8,34 @@
       <% end %>
     </div>
     <div class="order-options">
-      <div class="transport">
-        <h3>Livraison / Collecte</h3>
-        <div class="delivery-form">
-          <%= simple_form_for [@order] do |f| %>
-            <%= f.input :transport, label: "Mode de livraison :", as: :radio_buttons, collection_wrapper_tag: "div", collection_wrapper_class: 'category-wrapper', item_wrapper_class: 'category-item', input_html: {class: 'category-selector'}, collection: Order::TRANSPORT%>
-            <div id="delivery-fields" style="display: none;" >
-              <div class="address">
-                <% if @order.delivery_address %>
-                  <p>Adresse de livraison :</p>
-                  <p class="form-control"><%= @order.delivery_address %></p>
-                <% end %>
-              </div>
+      <h3>Livraison / Collecte</h3>
+      <div class="delivery-form">
+        <%= simple_form_for [@order] do |f| %>
+          <%= f.input :transport, label: "Mode de livraison :", as: :radio_buttons, collection_wrapper_tag: "div", collection_wrapper_class: 'category-wrapper', item_wrapper_class: 'category-item', input_html: {class: 'category-selector'}, collection: Order::TRANSPORT%>
+          <div id="delivery-fields" style="display: none;" >
+            <div class="address">
+              <% if @order.delivery_address %>
+                <p>Adresse de livraison :</p>
+                <p class="form-control"><%= @order.delivery_address %></p>
+              <% end %>
+            </div>
             <div class="form-group">
-              <div id="geocoder" class="form-group">
+              <div id="geocoder" class="form-group" data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
                 <%= f.input :delivery_address, as: :hidden, class: "form-control", label: "Changer l'adresse de livraison :"%>
               </div>
             </div>
-            <!--
-              <% if @order.delivery_address %>
-                <%= f.input :delivery_address, id:"address-autocomplete-input",
-                input_html: {data: {address_autocomplete_target: "address"}, class: "d-none"},
-                wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}}, label: "Changer l'adresse de livraison :"%>
-              <% else %>
-                <%= f.input :delivery_address,
-                input_html: {data: {address_autocomplete_target: "address"}, class: "d-none"},
-                wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}}, label: "Choisir une adresse de livraison :"%>
-              <% end %>
-            -->
-              <%= f.input :delivery_instructions, as: :text, label: "Instructions de livraison :" %>
-            </div>
-            <%= f.input :phone, label: "Numéro à contacter :" %>
-            <%= f.input :date, as: :date, html5: true, label: "Date de livraison souhaitée :" ,input_html: { id: "order_date" } %>
-            <%= f.submit "Valider", class: "btn-action"  %>
-          <% end %>
-          <% if !@order.in_delivery_area?  %>
-            <p class="warning-delivery alert-danger">Désolé, la livraison est impossible à cette adresse</p>
-          <% end %>
-        </div>
+          </div>
+            <%= f.input :delivery_instructions, as: :text, label: "Instructions de livraison :" %>
+          </div>
+          <%= f.input :phone, label: "Numéro à contacter :" %>
+          <%= f.input :date, as: :date, html5: true, label: "Date de livraison souhaitée :" ,input_html: { id: "order_date" } %>
+          <%= f.submit "Valider", class: "btn-action"  %>
+        <% end %>
+        <% if !@order.in_delivery_area?  %>
+          <p class="warning-delivery alert-danger">Désolé, la livraison est impossible à cette adresse</p>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
-
-<script>
-  // 1- Show or hide the delivery fields based on the selected transport value
-  function toggleDeliveryFields() {
-    const selectedTransport = document.querySelector('input[name="order[transport]"]:checked').value;
-    const deliveryFields = document.querySelector('#delivery-fields');
-
-    if (selectedTransport === 'Delivery') {
-      deliveryFields.style.display = 'block';
-    } else {
-      deliveryFields.style.display = 'none';
-    }
-  }
-  // Initially check and display the delivery fields when the page loads
-  toggleDeliveryFields();
-  // Add an event listener to all radio buttons for "transport"
-  document.querySelectorAll('input[name="order[transport]"]').forEach(function(radio) {
-    radio.addEventListener('change', toggleDeliveryFields);
-  });
-
-
-  //2- Date constraint in form (Day + 2 minimum)
-  const dateInput = document.getElementById('order_date');
-
-  dateInput.addEventListener('change', () => {
-    const selectedDate = new Date(dateInput.value);
-    const today = new Date();
-
-    // Calculate the minimum allowed date (2 days from now)
-    const minDate = new Date(today);
-    minDate.setDate(today.getDate() + 2);
-
-    if (selectedDate < minDate) {
-      alert('Merci de choisir une date dans 2 jours ou plus');
-      dateInput.value = '';
-    }
-  });
-
-  //3- Address Autocomplete
-
-  mapboxgl.accessToken = '<%= ENV['MAPBOX_API_KEY'] %>';
-
-  // Initiate Geocoder
-  const geocoder = new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken,
-    types: 'country,region,place,postcode,locality,neighborhood, address'
-    });
-  geocoder.addTo('#geocoder');
-  const results = document.getElementById('result');
-  const addressInput = document.getElementById('order_delivery_address');
-
-  // Get results into input field
-  geocoder.on('result', (e) => {
-    console.log(e.result.place_name);
-    addressInput.value = e.result.place_name
-  });
-
-  // Clear results container when search is cleared.
-  geocoder.on('clear', () => {
-  });
-
-</script>
+<%= javascript_include_tag 'cart' %>
