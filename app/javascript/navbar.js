@@ -1,5 +1,7 @@
 // Cart Display on mouse hover
 
+console.log("Navbar JS - Hello");
+
 const cartButton = document.querySelector("#cart-button");
 const cartContent = document.querySelector("#cart-content");
 

@@ -3,10 +3,22 @@
     <a class="navbar-brand" href="<%=root_path%>">
       <%= image_tag "solstice_logo.jpg" %>
     </a>
-    <div class="session-info">
+
+    <!-- Check Session / Current Order -->
+    <div class="session-info" data-controller="test">
         <p>Order ID :<%= current_order.id %> </p>
         <p>Session ID :<%= session.id %></p>
     </div>
+
+
+    <!-- Test Stimulus -->
+    <div data-controller="test" class="mt-4" id="test-stimulus">
+      <button class="btn btn-outline-primary" data-action="click->test#coucou">Test Stimulus</button>
+      <div data-test-target="togglableElement" class="d-none">
+        <p>Coucou</p>
+      </div>
+    </div>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
           <% if user_signed_in? %>
@@ -71,4 +83,3 @@
     </div>
   </div>
 </div>
-<%= javascript_include_tag 'navbar' %>
